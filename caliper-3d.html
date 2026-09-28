@@ -74,7 +74,6 @@ h1{margin:0;font-size:27px;line-height:1.1;letter-spacing:-.65px;font-weight:550
 .presets button.active,.presets button[aria-pressed=true]{color:#284f56;background:#e0e8dc}
 .playback{display:flex;align-items:center;gap:14px;margin-top:21px}
 .primary-button{border:0;background:#304e57;color:#f4f5ed;border-radius:4px;min-height:41px;padding:0 17px;font-size:12px;font-weight:550;flex:1;letter-spacing:.1px}
-.primary-button>span{font-size:10px;margin-right:7px}
 .primary-button:hover{background:#3f6570}
 .text-button{padding:9px 0;border:0;background:none;color:#7b8584;font-size:11px}
 .text-button:hover{color:#304e57}
@@ -84,7 +83,8 @@ h1{margin:0;font-size:27px;line-height:1.1;letter-spacing:-.65px;font-weight:550
 .mini-accent{width:16px;height:3px;background:#c9b265;display:block}
 #scaleDiagram{display:block;width:100%;height:auto;margin:12px 0 8px;overflow:visible;font-family:inherit}
 .scale-section p{margin:0;color:#7e8782;font-size:10px;line-height:1.65}
-.scale-section .pitch-note{margin-top:7px;color:#546d6b}
+.scale-section p+p{margin-top:7px}
+.scale-section .pitch-note{color:#546d6b}
 .help{margin-top:18px;color:#74807c;font-size:10px;line-height:1.6}
 .help summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer;list-style:none;font-size:11px;color:#687671}
 .help summary::-webkit-details-marker{display:none}
@@ -122,8 +122,78 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
 .fine-adjustment{grid-template-columns:61px minmax(0,1fr) 61px}
 .exact-input input{padding-left:5px;font-size:13px}
 .scale-section .pitch-note{font-size:9px}
-@media(max-width:850px){.sample-section{grid-column:1;grid-row:2;padding-top:19px}.adjustment{grid-column:2;grid-row:1 / span 2}.scale-section{grid-column:1;grid-row:3}.help{grid-column:2;grid-row:3}.model-note{grid-column:1 / -1;grid-row:4}}
-@media(max-width:520px){.sample-section{padding-top:19px}.adjustment{padding-top:24px}.decomposition{gap:25px}.sample-row{flex-wrap:nowrap}.contact-status{padding-left:0}.primary-button{font-size:12px}}
+@media(max-width:850px){
+  .mode-switch{grid-column:1 / -1;grid-row:1}
+  .measurement{grid-column:1;grid-row:2}.sample-section{grid-column:1;grid-row:3;padding-top:19px}.adjustment{grid-column:2;grid-row:2 / span 2}.scale-section{grid-column:1;grid-row:4}.help{grid-column:2;grid-row:4}.model-note{grid-column:1 / -1;grid-row:5}
+  .app.is-practice .control-rail{grid-template-rows:auto auto 1fr auto}.app.is-practice .practice{grid-column:1;grid-row:2 / span 2}.app.is-practice .scale-section{grid-column:2;grid-row:2;padding-top:0}.app.is-practice .help{grid-column:2;grid-row:3}.app.is-practice .model-note{grid-row:4}
+}
+@media(max-width:520px){.sample-section{padding-top:19px}.adjustment{padding-top:24px}.decomposition{gap:25px}.sample-row{flex-wrap:nowrap}.contact-status{padding-left:0}.primary-button{font-size:12px}.app.is-practice .scale-section{padding-top:24px}}
+
+/* Practice mode, mode switch and navigation hints (shared by the caliper and micrometer pages). */
+.mode-switch{display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:3px;margin:0 0 24px;border-radius:7px;background:#e3e5dd}
+.mode-switch button{height:34px;border:0;border-radius:5px;background:transparent;color:#61706d;font-size:12px;font-weight:600;letter-spacing:.1px}
+.mode-switch button:hover{color:#26434a}
+.mode-switch button[aria-pressed=true]{background:#fbfbf7;color:#22393f;box-shadow:0 1px 2px rgba(18,29,40,.14)}
+.app.is-practice .explore-only,.app:not(.is-practice) .practice-only{display:none!important}
+.primary-button .icon{display:inline-block;min-width:10px;font-size:10px;margin-right:7px}
+.practice{padding:0 0 22px;border-bottom:1px solid var(--line)}
+.task-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.task-score{font-size:10px;color:#7d8784;font-variant-numeric:tabular-nums;white-space:nowrap}
+.task-text{margin:9px 0 15px;font-size:12px;line-height:1.55;color:#3d4d55}
+.answer-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;margin:0}
+.answer-input{position:relative;display:flex;align-items:center;height:54px;border:1px solid #cdd5cb;border-radius:5px;background:#fbfbf7;transition:border-color .16s ease,box-shadow .16s ease}
+.answer-input:focus-within{border-color:#6c8f89;box-shadow:0 0 0 3px rgba(108,143,137,.2)}
+.answer-input input{width:100%;min-width:0;height:100%;border:0;background:transparent;padding:0 40px 0 14px;font-size:28px;font-weight:450;letter-spacing:-.8px;color:var(--ink);font-variant-numeric:tabular-nums;outline:none}
+.answer-input input::placeholder{color:#c5cac2}
+.answer-input>span{position:absolute;right:13px;font-size:12px;color:#8b8f8b;pointer-events:none}
+.answer-row .primary-button{flex:none;min-height:54px;padding:0 15px}
+.answer-hint{margin:8px 0 0;font-size:9px;line-height:1.5;color:#8a918c}
+.feedback{margin-top:15px;padding:12px 14px 13px;border:1px solid #d7dcd3;border-left-width:3px;border-radius:4px;background:#fafaf6}
+.feedback[data-kind=ok]{border-color:#a4c8ba;border-left-color:#3c8a79;background:#e9f2ec}
+.feedback[data-kind=bad]{border-color:#e4c7ab;border-left-color:#c4793d;background:#fbf1e7}
+.feedback[data-kind=reveal]{border-color:#dcd2a8;border-left-color:#b89a2c;background:#f8f4e2}
+.feedback[data-kind=info]{border-left-color:#7e9aa0}
+.feedback-title{margin:0;font-size:12px;font-weight:650;line-height:1.4;color:#2c3c42}
+.feedback-text{margin:6px 0 0;font-size:11px;line-height:1.6;color:#4c5a5c}
+.feedback-text b{font-weight:650;color:#2f4146}
+.task-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin-top:13px}
+.task-actions .secondary-button{margin-left:auto}
+.secondary-button{min-height:36px;padding:0 14px;border:1px solid #b5c4b9;border-radius:4px;background:#e5eae0;color:#2f5651;font-size:11px;font-weight:600;white-space:nowrap}
+.secondary-button:hover{background:#d9e3d5;border-color:#91ab9a}
+.secondary-button.is-ready{background:#304e57;border-color:#304e57;color:#f4f5ed}
+.secondary-button.is-ready:hover{background:#3f6570}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px;padding-top:17px;border-top:1px solid var(--line)}
+.stats>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.stat-value{font-size:17px;color:#34464d;font-variant-numeric:tabular-nums}
+.stat-label{font-size:9px;color:#8a918c;line-height:1.3}
+.error-tally{margin-top:16px}
+.error-tally h3{margin:0 0 7px;font-size:9px;font-weight:650;letter-spacing:1.5px;color:var(--muted)}
+.error-tally ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.error-tally li{display:flex;justify-content:space-between;gap:10px;font-size:10px;line-height:1.35;color:#56645f}
+.error-tally li span:last-child{font-variant-numeric:tabular-nums;color:#9a5f2e;font-weight:650}
+.log{margin-top:16px;font-size:10px;color:#5f6d69}
+.log summary{display:flex;align-items:center;gap:7px;cursor:pointer;list-style:none;font-size:11px;color:#687671}
+.log summary::-webkit-details-marker{display:none}
+.log summary .plus{margin-left:auto;font-size:17px;font-weight:300;color:#9aa69b;transition:transform .2s}
+.log[open] summary .plus{transform:rotate(45deg)}
+.log-count{font-size:9px;padding:1px 6px;border-radius:9px;background:#e3e6de;color:#5f6d69;font-variant-numeric:tabular-nums}
+.log-list{margin:9px 0 0;padding:0;list-style:none;max-height:230px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#c5cbc3 transparent}
+.log-list li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:2px 8px;padding:6px 0;border-bottom:1px solid #e4e6de;font-variant-numeric:tabular-nums}
+.log-list .n{color:#9aa19a}
+.log-list .v{color:#34464d}
+.log-list .t{color:#9aa19a;text-align:right}
+.log-list .r{grid-column:2 / -1;color:#7a8580}
+.log-list .r.ok{color:#3c7771}
+.log-list .r.bad{color:#9a5f2e}
+.log-list .empty{display:block;color:#9aa19a;border:0}
+.log-actions{display:flex;gap:16px;margin-top:8px}
+.log-actions .text-button{font-size:10px}
+.reveal-note{display:none;margin:12px 0 10px;padding:10px 12px;border:1px dashed #cfd5cb;border-radius:4px;color:#8a918c;font-size:10px;line-height:1.5}
+.app.is-practice .scale-section.is-concealed .reveal-note{display:block}
+.app.is-practice .scale-section.is-concealed svg,.app.is-practice .scale-section.is-concealed .match-reading{display:none!important}
+.hint-touch{display:none}
+@media(hover:none) and (pointer:coarse){.hint-mouse{display:none}.hint-touch{display:inline}}
+@media(max-width:520px){.answer-input input{font-size:26px}}
 
 </style>
 </head>
@@ -146,12 +216,17 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
           <button id="labelsToggle" class="view-button" type="button" aria-pressed="false" title="Показати назви деталей"><span aria-hidden="true">Aa</span><span>Деталі</span></button>
           <button id="fullscreen" class="view-button icon-only" type="button" aria-label="На весь екран" title="На весь екран"><span aria-hidden="true">⛶</span></button>
         </div>
-        <p class="camera-hint"><span aria-hidden="true">↔</span> Перетягніть, щоб обертати <span class="hint-dot">·</span> Прокрутіть, щоб наблизити</p>
+        <p class="camera-hint"><span aria-hidden="true">↔</span><span class="hint-mouse">Перетягніть, щоб обертати <span class="hint-dot">·</span> Колесо — наблизити до курсора <span class="hint-dot">·</span> Права кнопка — зсув</span><span class="hint-touch">Один палець — обертати <span class="hint-dot">·</span> Два — масштаб і зсув</span></p>
         <div id="error" class="error-message" role="alert" hidden></div>
       </section>
 
       <aside class="control-rail" aria-label="Керування штангенциркулем">
-        <section class="measurement" aria-labelledby="reading-title">
+        <div class="mode-switch" role="group" aria-label="Режим роботи">
+          <button id="modeExplore" type="button" aria-pressed="true">Дослідження</button>
+          <button id="modePractice" type="button" aria-pressed="false">Практика</button>
+        </div>
+
+        <section class="measurement explore-only" aria-labelledby="reading-title">
           <p id="reading-title" class="section-label">ПОТОЧНИЙ ВІДЛІК</p>
           <div class="reading-line"><output id="reading" for="opening exactValue">35,00</output><span>мм</span></div>
           <div class="decomposition" aria-label="Складові показу">
@@ -161,13 +236,13 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
           </div>
         </section>
 
-        <section class="sample-section" aria-label="Деталь для вимірювання">
-          <div class="sample-row"><label class="sample-label" for="sampleToggle"><input id="sampleToggle" type="checkbox" checked><span>Гайка для вимірювання</span></label><span id="contactStatus" class="contact-status">Між губками</span></div>
+        <section class="sample-section explore-only" aria-label="Деталь для вимірювання">
+          <div class="sample-row"><label class="sample-label" for="sampleToggle"><input id="sampleToggle" type="checkbox" checked><span>Гайка M16</span></label><span id="contactStatus" class="contact-status">Між губками</span></div>
           <button id="measure" class="measure-button" type="button"><span aria-hidden="true">→|←</span> Звести губки до деталі</button>
-          <p class="sample-note">Губки зупиняються на гайці шириною 24,70 мм. Приберіть її, щоб відкрити повний діапазон 0–150 мм.</p>
+          <p class="sample-note">Номінальний розмір гайки під ключ — 24 мм, фактичний трохи менший: губки зупиняються на 23,85 мм. Приберіть гайку, щоб відкрити повний діапазон 0–150 мм.</p>
         </section>
 
-        <section class="adjustment" aria-labelledby="opening-label">
+        <section class="adjustment explore-only" aria-labelledby="opening-label">
           <div class="label-row"><label id="opening-label" for="opening">Розкриття губок</label><span>0–150 мм</span></div>
           <input id="opening" type="range" min="0" max="3000" step="1" value="700" aria-label="Розкриття штангенциркуля з кроком 0,05 мм">
           <div class="fine-adjustment">
@@ -176,29 +251,59 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
             <button id="plus" class="step-button" type="button" aria-label="Збільшити на 0,05 мм">+0,05</button>
           </div>
           <div class="presets" role="group" aria-label="Приклади показів">
-            <button type="button" data-value="480">24,00 мм</button>
-            <button type="button" data-value="494">24,70 мм</button>
-            <button type="button" data-value="600">30,00 мм</button>
+            <button type="button" data-value="600" title="Збігаються і нуль, і «10» ноніуса">30,00 мм</button>
+            <button type="button" data-value="647" title="Ненумерований штрих між «3» і «4»">32,35 мм</button>
+            <button type="button" data-value="810" title="Збіг на цифрі «5»">40,50 мм</button>
+            <button type="button" data-value="959" title="Нуль ноніуса майже біля наступного міліметра">47,95 мм</button>
           </div>
-          <div class="playback"><button id="play" class="primary-button" type="button"><span aria-hidden="true">▶</span> Показати вимірювання</button><button id="reset" class="text-button" type="button">Скинути</button></div>
+          <div class="playback"><button id="play" class="primary-button" type="button" aria-pressed="false"><span class="icon" aria-hidden="true">▶</span><span class="label">Показати вимірювання</span></button><button id="reset" class="text-button" type="button">Скинути</button></div>
           <div class="speed-row"><label for="speed">Швидкість руху</label><select id="speed"><option value="0.25">0,25×</option><option value="1" selected>1×</option><option value="2">2×</option></select></div>
         </section>
 
-        <section class="scale-section" aria-labelledby="scale-title">
+        <section id="practicePanel" class="practice practice-only" aria-labelledby="practice-title">
+          <div class="task-head"><p id="practice-title" class="section-label">ЗАВДАННЯ <span id="taskNumber">1</span></p><span id="taskScore" class="task-score"></span></div>
+          <p id="taskText" class="task-text"></p>
+          <form id="answerForm" class="answer-row" novalidate>
+            <div class="answer-input"><label class="sr-only" for="answer">Ваш відлік у міліметрах</label><input id="answer" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="0,00" aria-describedby="answerHint"><span aria-hidden="true">мм</span></div>
+            <button id="check" class="primary-button" type="submit">Перевірити</button>
+          </form>
+          <p id="answerHint" class="answer-hint">Відлік кратний 0,05 мм. Можна писати з комою або з крапкою.</p>
+          <div id="feedback" class="feedback" hidden><p id="feedbackTitle" class="feedback-title"></p><p id="feedbackText" class="feedback-text"></p></div>
+          <div class="task-actions">
+            <button id="hint" class="text-button" type="button">Підказка</button>
+            <button id="reveal" class="text-button" type="button">Показати відповідь</button>
+            <button id="nextTask" class="secondary-button" type="button">Наступне завдання</button>
+          </div>
+          <div class="stats" aria-label="Статистика цієї сесії">
+            <div><span id="statFirst" class="stat-value">0 з 0</span><span class="stat-label">правильно з першої спроби</span></div>
+            <div><span id="statStreak" class="stat-value">0</span><span class="stat-label">поточна серія</span></div>
+            <div><span id="statBest" class="stat-value">0</span><span class="stat-label">найкраща серія</span></div>
+          </div>
+          <div id="errorTally" class="error-tally" hidden></div>
+          <details class="log">
+            <summary>Журнал відповідей <span id="logCount" class="log-count">0</span><span class="plus" aria-hidden="true">+</span></summary>
+            <ol id="logList" class="log-list"></ol>
+            <div class="log-actions"><button id="exportLog" class="text-button" type="button">Завантажити CSV</button><button id="clearLog" class="text-button" type="button">Очистити журнал</button></div>
+          </details>
+        </section>
+
+        <section id="scaleSection" class="scale-section" aria-labelledby="scale-title">
           <div class="label-row"><h2 id="scale-title">Як читати ноніус</h2><span class="mini-accent" aria-hidden="true"></span></div>
           <svg id="scaleDiagram" viewBox="0 0 320 150" role="img" aria-label="Схема основної шкали та ноніуса"></svg>
-          <p id="matchReading" class="match-reading">Збіг: поділка 0 із 20</p>
-          <p>Цілі міліметри зчитуйте на основній шкалі перед нулем ноніуса. Для дробової частини помножте номер поділки ноніуса, що збігається зі штрихом основної шкали, на 0,05 мм.</p>
-          <p class="pitch-note">20 поділок ноніуса займають 39 мм. Цифри 0–10 позначають кожну другу поділку.</p>
+          <p class="reveal-note">Схема розбору з’явиться після правильної відповіді або після кнопки «Показати відповідь».</p>
+          <p id="matchReading" class="match-reading">Збіг: нуль ноніуса</p>
+          <p>Цілі міліметри — останній штрих основної шкали ліворуч від нуля ноніуса. Далі знайдіть штрих ноніуса, що точно збігається зі штрихом основної шкали: цифра біля нього означає десяті частки міліметра, а ненумерований штрих між цифрами додає ще 0,05 мм.</p>
+          <p class="pitch-note">20 поділок ноніуса займають 39 мм, цифри 0–10 стоять через штрих: «3» — це 0,30 мм, штрих між «3» і «4» — 0,35 мм.</p>
         </section>
 
         <details class="help">
           <summary>Керування та клавіші <span aria-hidden="true">+</span></summary>
-          <p>Перетягуйте фон, щоб обертати камеру, або рухому рамку, щоб пересувати губки. Колесо миші чи жест двома пальцями змінюють масштаб. Кнопка «Шкала» наближає поділки.</p>
-          <p>Пробіл — відтворення / пауза; <kbd>R</kbd> — скинути. У 3D-вікні <kbd>←</kbd> / <kbd>→</kbd> змінюють розкриття на 0,05 мм.</p>
+          <p>Перетягуйте фон, щоб обертати камеру, або рухому рамку, щоб пересувати губки. Колесо миші наближає до точки під курсором, права кнопка миші зсуває вигляд. На сенсорному екрані — один палець обертає, два змінюють масштаб і зсувають. Кнопка «Шкала» наближає поділки, подвійний клік перемикає вигляд.</p>
+          <p>Пробіл — відтворення / пауза; <kbd>R</kbd> — скинути. У 3D-вікні <kbd>←</kbd> / <kbd>→</kbd> змінюють розкриття на 0,05 мм, разом із <kbd>Shift</kbd> — на 1 мм.</p>
+          <p>У режимі практики рамка заблокована: у 3D-вікні стрілки зсувають вигляд, <kbd>+</kbd> / <kbd>−</kbd> змінюють масштаб, <kbd>Enter</kbd> у полі відповіді перевіряє її або відкриває наступне завдання.</p>
           <p>На повзунку також працюють <kbd>←</kbd> / <kbd>→</kbd>, <kbd>Home</kbd> і <kbd>End</kbd>. Для повного закриття губок спочатку приберіть гайку.</p>
         </details>
-        <p class="model-note">Геометрію деталей відтворено наближено.</p>
+        <p class="model-note">Геометрію деталей відтворено наближено. Шкали нанесено точно: зсув ноніуса на одну поділку дорівнює 0,05 мм.</p>
       </aside>
     </main>
   </div>
@@ -242,9 +347,15 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
 (() => {
  'use strict';
  const $=id=>document.getElementById(id);
- const fmt=n=>n.toLocaleString('uk-UA',{minimumFractionDigits:2,maximumFractionDigits:2});
- const NUT=494, END=210, ZERO=8, PITCH=39/20;
- const canvas=$('scene'), viewport=$('viewport');
+ const fmt=(n,d=2)=>n.toLocaleString('uk-UA',{minimumFractionDigits:d,maximumFractionDigits:d});
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ const pick=a=>a[Math.floor(Math.random()*a.length)];
+ const STEP=20;                        // reading steps per millimetre (0,05 mm)
+ const NUT=477,NUT_MM=NUT/STEP;        // M16 nut: nominal 24 mm across flats, this one measures 23,85 mm
+ const MAX=3000,END=210,ZERO=8,PITCH=39/20;
+ const BODY_END=51;                    // slider body ends 4 mm past the vernier «10» (x = 47), so that tick stays visible
+ const SCALE_Z=2.025,VERNIER_Z=2.055;  // near-coplanar scale faces: perspective parallax stays below ~0,2 of a division
+ const canvas=$('scene'),viewport=$('viewport'),app=document.querySelector('.app');
  let renderer;
  try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});}
  catch(e){$('error').hidden=false;$('error').textContent='Для 3D потрібен WebGL. Відкрийте HTML у сучасному Chrome, Edge або Firefox із апаратним прискоренням.';return;}
@@ -252,7 +363,8 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
  renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;
  const scene=new THREE.Scene();scene.fog=new THREE.Fog(0x121d28,600,1100);
- const camera=new THREE.PerspectiveCamera(35,1,.1,1600);
+ const camera=new THREE.PerspectiveCamera(35,1,1,1600);
+ const CAM={min:8,max:1100,maxElevation:1.25,lo:new THREE.Vector3(-80,-90,-60),hi:new THREE.Vector3(420,70,60)};
  scene.add(new THREE.HemisphereLight(0xe7efff,0x48423a,2.3));
  const key=new THREE.DirectionalLight(0xfff0d5,3.2);key.position.set(-30,110,130);key.castShadow=true;
  key.shadow.mapSize.set(2048,2048);key.shadow.camera.left=-220;key.shadow.camera.right=350;
@@ -263,84 +375,136 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
  const brushed=new THREE.MeshStandardMaterial({color:0x5d7280,metalness:.42,roughness:.5});
  const polished=new THREE.MeshStandardMaterial({color:0xc1ccd1,metalness:.78,roughness:.25});
  const dark=new THREE.MeshStandardMaterial({color:0x293a46,metalness:.4,roughness:.48});
- const black=new THREE.MeshStandardMaterial({color:0x172732,metalness:.25,roughness:.5});
- const gold=new THREE.MeshBasicMaterial({color:0xf9d969});
- const teal=new THREE.MeshBasicMaterial({color:0x88d1c6});
  const model=new THREE.Group();scene.add(model);
  function mesh(geo,mat,parent=model){const m=new THREE.Mesh(geo,mat);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
  function box(x,y,z,w,h,d,mat,parent=model){const m=mesh(new THREE.BoxGeometry(w,h,d),mat,parent);m.position.set(x,y,z);return m;}
  function line(points,color=0x85ccc1,parent=model){const g=new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(...p)));const m=new THREE.Line(g,new THREE.LineBasicMaterial({color}));parent.add(m);return m;}
  function polygon(points,z,depth,mat,parent=model){const s=new THREE.Shape();points.forEach(([x,y],i)=>i?s.lineTo(x,y):s.moveTo(x,y));s.closePath();const m=mesh(new THREE.ExtrudeGeometry(s,{depth,bevelEnabled:false}),mat,parent);m.position.z=z;return m;}
  function cylinderY(x,y,z,r,h,mat,parent=model){const m=mesh(new THREE.CylinderGeometry(r,r,h,48),mat,parent);m.position.set(x,y,z);return m;}
+ // Repeated small parts (knurl ridges, grip ribs) share one draw call.
+ function instances(geo,mat,positions,parent=model){const m=new THREE.InstancedMesh(geo,mat,positions.length);const o=new THREE.Object3D();positions.forEach((p,i)=>{o.position.set(p[0],p[1],p[2]);o.rotation.set(0,p[3]||0,0);o.updateMatrix();m.setMatrixAt(i,o.matrix);});m.castShadow=m.receiveShadow=true;parent.add(m);return m;}
  function texture(w,h,paint){const c=document.createElement('canvas');c.width=w;c.height=h;paint(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=renderer.capabilities.getMaxAnisotropy();return t;}
  function surface(tex,w,h,x,y,z,parent=model){const m=mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshStandardMaterial({map:tex,metalness:.1,roughness:.77}),parent);m.position.set(x,y,z);m.castShadow=false;return m;}
+ // Numerals are separate high-resolution quads so they stay sharp in close-ups. size = digit height, mm.
+ function numeral(text,{size,color,x,y,z,align='center',weight=600,parent=model}){
+   const H=256,fontPx=H*.74,cap=fontPx*.716,font=`${weight} ${fontPx}px Arial, "Liberation Sans", sans-serif`;
+   const probe=document.createElement('canvas').getContext('2d');probe.font=font;
+   const pad=Math.round(H*.1),W=Math.ceil(probe.measureText(text).width)+2*pad;
+   const tex=texture(W,H,(c,w,h)=>{c.font=font;c.fillStyle=color;c.textAlign='left';c.textBaseline='alphabetic';c.fillText(text,pad,(h+cap)/2);});
+   const k=size/cap,m=new THREE.Mesh(new THREE.PlaneGeometry(W*k,H*k),new THREE.MeshStandardMaterial({map:tex,transparent:true,metalness:.1,roughness:.77,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}));
+   m.receiveShadow=true;m.position.set(align==='left'?x-pad*k+W*k/2:x,y,z);parent.add(m);return m;
+ }
+ // Graduations are drawn analytically in the fragment shader: box-filtered tick trains stay crisp at any zoom
+ // and fade evenly instead of aliasing when the camera is far away.
+ const GLSL_TICKS=`
+varying vec2 vScaleXY;
+float tickInt(float x,float w){float t=x+.5*w;return floor(t)*w+min(fract(t),w);}
+float ticks(float x,float w,float f){f=max(f,1e-4);return(tickInt(x+.5*f,w)-tickInt(x-.5*f,w))/f;}
+float below(float y,float L,float f){return clamp((L-y)/max(f,1e-4)+.5,0.,1.);}
+float single(float x,float c,float h,float f){f=max(f,1e-4);return clamp(h+.5*f-abs(x-c),0.,min(f,2.*h))/f;}
+`;
+ const glslNum=v=>Number(v).toFixed(6);
+ const glslColor=hex=>{const c=new THREE.Color(hex);return`vec3(${glslNum(c.r)},${glslNum(c.g)},${glslNum(c.b)})`;};
+ function scaleMaterial(color,cacheKey,uniforms,body){
+   const mat=new THREE.MeshPhysicalMaterial({color,metalness:.1,roughness:.77,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
+   mat.onBeforeCompile=shader=>{
+     Object.assign(shader.uniforms,uniforms);
+     shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec2 vScaleXY;').replace('#include <begin_vertex>','#include <begin_vertex>\nvScaleXY=position.xy;');
+     shader.fragmentShader=shader.fragmentShader
+       .replace('#include <common>','#include <common>\n'+GLSL_TICKS+Object.keys(uniforms).map(k=>`uniform float ${k};`).join('\n'))
+       .replace('#include <map_fragment>','#include <map_fragment>\nfloat scaleGlow=0.;vec3 scaleGlowColor=vec3(0.);\n{'+body+'}')
+       .replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\ntotalEmissiveRadiance+=scaleGlowColor*scaleGlow;');
+   };
+   mat.customProgramCacheKey=()=>cacheKey;
+   return mat;
+ }
+ const TICK_W=.08; // stroke width, mm
+ const GOLD=glslColor('#ff9a1f'),TEAL=glslColor('#3fd7c1');
  // Main beam: millimetre ticks continue under the long 39 mm vernier.
  box(99,5.5,0,222,11,4,brushed);
  box(99,11,0,222,.35,4.2,polished);
- box(99,0,0,222,.3,4.2,polished);
+ box(99,0,0,222,.3,3.9,polished);          // lower edge strip sits behind the scale faces
  box(END-.7,5.5,0,1.4,11,4.2,polished);
- const beamTexture=texture(6144,360,(c,w,h)=>{
-   c.fillStyle='#4b5e6c';c.fillRect(0,0,w,h);
-   const px=x=>(x+12)/222*w;
-   c.strokeStyle='#f4d976';c.fillStyle='#f4d976';c.lineWidth=2.5;
-   c.font='600 76px Arial';c.textAlign='center';c.textBaseline='middle';
-   for(let i=0;i<=190;i++){
-     c.globalAlpha=i>150?.65:1;
-     c.beginPath();c.moveTo(px(ZERO+i),h-4);c.lineTo(px(ZERO+i),h-(i%10===0?148:i%5===0?113:76));c.stroke();
-     if(i%10===0&&i<=150)c.fillText(String(i),px(ZERO+i),99);
-   }
-   c.globalAlpha=1;c.font='38px Arial';c.textAlign='left';c.fillText('mm',px(177),96);
- });
- surface(beamTexture,222,11,99,5.5,2.025);
+ const mainU={uHiA:{value:-99},uHiB:{value:-99}};
+ const mainScale=mesh(new THREE.PlaneGeometry(222,11),scaleMaterial('#4b5e6c','caliper-main',mainU,`
+   float xs=vScaleXY.x+${glslNum(99-ZERO)};  // mm from the zero stroke
+   float ys=vScaleXY.y+5.5;                  // mm above the lower edge
+   float fx=fwidth(xs),fy=fwidth(ys);
+   float e1=below(ys,2.3,fy),e5=below(ys,3.45,fy),e10=below(ys,4.5,fy);
+   float m=ticks(xs,${glslNum(TICK_W)},fx)*e1+ticks(xs/5.,${glslNum(TICK_W/5)},fx/5.)*(e5-e1)+ticks(xs/10.,${glslNum(TICK_W/10)},fx/10.)*(e10-e5);
+   m*=step(-.5,xs)*step(xs,190.5)*(xs>150.5?.62:1.);
+   float hi=clamp(single(xs,uHiA,.35,fx)+single(xs,uHiB,.35,fx),0.,1.);
+   // the matched stroke is drawn a little wider and in a warmer colour
+   float LA=mod(uHiA+.5,10.)<1.?4.5:mod(uHiA+.5,5.)<1.?3.45:2.3,LB=mod(uHiB+.5,10.)<1.?4.5:mod(uHiB+.5,5.)<1.?3.45:2.3;
+   m=max(m,max(single(xs,uHiA,.07,fx)*below(ys,LA,fy),single(xs,uHiB,.07,fx)*below(ys,LB,fy)));
+   diffuseColor.rgb=mix(diffuseColor.rgb,mix(${glslColor('#f4d976')},${GOLD},hi),m);
+   scaleGlow=m*hi;scaleGlowColor=${GOLD}*.28;`),model);
+ mainScale.position.set(99,5.5,SCALE_Z);mainScale.castShadow=false;
+ for(let i=0;i<=150;i+=10)numeral(String(i),{size:1.66,color:'#f4d976',x:ZERO+i,y:8,z:SCALE_Z+.002});
+ numeral('mm',{size:.83,color:'#f4d976',x:177,y:8,z:SCALE_Z+.002,align:'left'});
  // Fixed external jaw. The polished measuring plane is exactly X=0.
  polygon([[-12,11],[-.3,11],[-.3,-50],[-3,-50],[-6,-46],[-12,-19]],-2,4,metal);
  box(-.15,-29,0,.3,42,4.12,polished);
  // Tapered internal tips use opposite half-thicknesses, allowing closure without collision.
  polygon([[0,11],[5,11],[4,23],[0,31]],-2,1.9,metal);
  box(.10,25,-1.05,.2,10,1.95,polished);
- // Moving jaw, carriage, vernier and depth rod translate as one rigid assembly.
+ // Moving jaw, slider, vernier and depth rod translate as one rigid assembly.
  const carriage=new THREE.Group();model.add(carriage);
- box(23,-4,0,50,8,5,brushed,carriage);
- box(23,13,0,50,4,5,metal,carriage);
- box(23,5.5,-2.9,50,11,1.5,dark,carriage);
- box(47,5.5,0,2,11,5.3,metal,carriage);
+ const BODY_W=BODY_END+2,BODY_X=(BODY_END-2)/2;
+ box(BODY_X,-4,-.25,BODY_W,8,4.5,brushed,carriage);   // front face flush with the beam (z = 2)
+ box(BODY_X,13,0,BODY_W,4,5,metal,carriage);
+ box(BODY_X,5.5,-2.9,BODY_W,11,1.5,dark,carriage);
+ box(BODY_END+1,5.5,0,2,11,5.3,metal,carriage);       // end bridge over the beam
  polygon([[.3,0],[14,0],[14,-15],[7,-41],[3,-49],[.3,-50]],-2,4,metal,carriage);
  box(.15,-29,0,.3,42,4.12,polished,carriage);
  polygon([[0,11],[-5,11],[-4,23],[0,31]],.1,1.9,metal,carriage);
  box(-.10,25,1.05,.2,10,1.95,polished,carriage);
  // Thumb grip beneath the slider and a knurled lock screw above it.
  polygon([[15,-8],[43,-8],[43,-13],[38,-14],[30,-12],[15,-12]],-2.5,5,brushed,carriage);
- for(let i=0;i<15;i++)box(18+i*1.45,-12.35,2.55,.28,1.1,.2,polished,carriage);
+ instances(new THREE.BoxGeometry(.28,1.1,.2),polished,Array.from({length:15},(_,i)=>[18+i*1.45,-12.35,2.55]),carriage);
  cylinderY(22,16,0,2.9,2.2,dark,carriage);
- for(let i=0;i<28;i++){const a=i/28*Math.PI*2;box(22+Math.cos(a)*2.8,16,Math.sin(a)*2.8,.3,2.2,.3,polished,carriage);}
+ instances(new THREE.BoxGeometry(.3,2.2,.3),polished,Array.from({length:28},(_,i)=>{const a=i/28*Math.PI*2;return[22+Math.cos(a)*2.8,16,Math.sin(a)*2.8,-a];}),carriage);
  box((48+END)/2,5.5,-.4,END-48,1.5,1.4,polished,carriage);
- const zeroTex=texture(2000,300,(c,w,h)=>{
-   c.fillStyle='#536a76';c.fillRect(0,0,w,h);
-   const px=x=>(x+2)/50*w;c.strokeStyle='#ffe179';c.fillStyle='#ffe179';c.lineWidth=3;
-   c.font='600 83px Arial';c.textAlign='center';c.textBaseline='middle';
-   for(let j=0;j<=20;j++){
-     const x=px(ZERO+j*PITCH);
-     c.beginPath();c.moveTo(x,3);c.lineTo(x,j%2===0?115:80);c.stroke();
-     if(j%2===0)c.fillText(String(j/2),x,190);
-   }
-   c.font='29px Arial';c.textAlign='left';c.fillStyle='#afc1c2';c.fillText('0.05 mm',px(.4),246);
- });
- surface(zeroTex,50,8,23,-4,2.54,carriage);
+ const vernU={uHiA:{value:-99},uHiB:{value:-99},uZero:{value:1}};
+ const vernier=mesh(new THREE.PlaneGeometry(BODY_W,8),scaleMaterial('#536a76','caliper-vernier',vernU,`
+   float u=(vScaleXY.x+${glslNum(BODY_X-ZERO)})/${glslNum(PITCH)};  // vernier division index
+   float yd=4.-vScaleXY.y;                                           // mm below the upper edge
+   float fu=fwidth(u),fy=fwidth(yd);
+   float e1=below(yd,2.13,fy),e2=below(yd,3.07,fy);
+   float m=ticks(u,${glslNum(TICK_W/PITCH)},fu)*e1+ticks(u*.5,${glslNum(TICK_W/PITCH/2)},fu*.5)*(e2-e1);
+   m*=step(-.5,u)*step(u,20.5);
+   float hi=clamp(single(u,uHiA,.18,fu)+single(u,uHiB,.18,fu),0.,1.);
+   float LA=mod(uHiA+.5,2.)<1.?3.07:2.13,LB=mod(uHiB+.5,2.)<1.?3.07:2.13,wu=${glslNum(.07/PITCH)};
+   m=max(m,max(single(u,uHiA,wu,fu)*below(yd,LA,fy),single(u,uHiB,wu,fu)*below(yd,LB,fy)));
+   float z0=uZero*single(u,0.,.18,fu)*(1.-hi);
+   m=max(m,z0*single(u,0.,wu,fu)*below(yd,3.07,fy));
+   diffuseColor.rgb=mix(diffuseColor.rgb,mix(mix(${glslColor('#ffe179')},${TEAL},z0),${GOLD},hi),m);
+   scaleGlow=m*max(hi,z0);scaleGlowColor=mix(${TEAL},${GOLD},hi)*.28;`),carriage);
+ vernier.position.set(BODY_X,-4,VERNIER_Z);vernier.castShadow=false;
+ for(let j=0;j<=20;j+=2)numeral(String(j/2),{size:1.58,color:'#ffe179',x:ZERO+j*PITCH,y:-5,z:VERNIER_Z+.002,parent:carriage});
+ numeral('0.05 mm',{size:.55,color:'#afc1c2',weight:400,x:.4,y:-6.6,z:VERNIER_Z+.002,align:'left',parent:carriage});
  const plate=texture(720,150,(c,w,h)=>{c.fillStyle='#71838c';c.fillRect(0,0,w,h);c.fillStyle='#283d4a';c.font='600 66px Arial';c.textAlign='center';c.fillText('0–150 mm  /  0.05',w/2,98);});
  surface(plate,31,3.1,27,13,2.54,carriage);
- // Highlight the coincidence between one vernier tick and one main-scale tick.
- const mainMatch=box(0,2,2.09,.14,4,.06,gold);
- const vernierMatch=box(ZERO,-1.5,2.60,.14,3,.06,gold,carriage);
- const zeroLine=box(ZERO,-1.5,2.64,.12,3,.06,teal,carriage);
- const matchBridge=line([[0,-.12,2.7],[0,.5,2.7]],0xffdf72);
- // Across-flats size of the reference nut is 2.47 cm = 24.70 mm.
- const nut=new THREE.Group();model.add(nut);nut.position.set(NUT/40,-31,0);
- const radius=(NUT/20-.5)/Math.sqrt(3), inner=7.7;
- const hex=new THREE.Shape();for(let i=0;i<6;i++){const a=Math.PI/6+i*Math.PI/3;const x=Math.cos(a)*radius,y=Math.sin(a)*radius;i?hex.lineTo(x,y):hex.moveTo(x,y);}hex.closePath();
- const hole=new THREE.Path();hole.absarc(0,0,inner,0,Math.PI*2,true);hex.holes.push(hole);
- const nutBody=mesh(new THREE.ExtrudeGeometry(hex,{depth:8,bevelEnabled:true,bevelSize:.25,bevelThickness:.3,bevelSegments:2,curveSegments:64}),new THREE.MeshStandardMaterial({color:0x7e719c,metalness:.65,roughness:.35}),nut);nutBody.position.z=-4;
- // Visible thread ridges inside the hole; the hole remains open through the nut.
- for(let i=0;i<6;i++){const ring=mesh(new THREE.TorusGeometry(inner-.04,.15,5,80),new THREE.MeshStandardMaterial({color:0x948aa8,metalness:.68,roughness:.35}),nut);ring.position.z=-3.4+i*1.3;}
+ // Specimens. The M16 nut is built at 23,85 mm across flats; practice tasks scale it or use a rod or block.
+ const specimen=new THREE.Group();model.add(specimen);
+ const nut=new THREE.Group();specimen.add(nut);
+ {
+   const bevel=.25,R=(NUT_MM-2*bevel)/Math.sqrt(3),inner=6.95,depth=13.8;
+   const hex=new THREE.Shape();for(let i=0;i<6;i++){const a=Math.PI/6+i*Math.PI/3;const x=Math.cos(a)*R,y=Math.sin(a)*R;i?hex.lineTo(x,y):hex.moveTo(x,y);}hex.closePath();
+   const hole=new THREE.Path();hole.absarc(0,0,inner,0,Math.PI*2,true);hex.holes.push(hole);
+   const body=mesh(new THREE.ExtrudeGeometry(hex,{depth,bevelEnabled:true,bevelSize:bevel,bevelThickness:.3,bevelSegments:2,curveSegments:64}),new THREE.MeshStandardMaterial({color:0x7e719c,metalness:.65,roughness:.35}),nut);body.position.z=-depth/2;
+   // Thread crests inside the hole (M16 coarse pitch 2 mm); the hole stays open through the nut.
+   const crest=new THREE.MeshStandardMaterial({color:0x948aa8,metalness:.68,roughness:.35});
+   for(let i=0;i<7;i++){const ring=mesh(new THREE.TorusGeometry(inner-.04,.16,5,80),crest,nut);ring.position.z=-6+i*2;}
+ }
+ const rod=mesh(new THREE.CylinderGeometry(.5,.5,1,96),new THREE.MeshStandardMaterial({color:0xaeb9c0,metalness:.78,roughness:.26}),specimen);rod.rotation.x=Math.PI/2;
+ const block=mesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:0xb69a5c,metalness:.72,roughness:.34}),specimen);
+ function placeSpecimen(type,mm){
+   nut.visible=type==='nut';rod.visible=type==='rod';block.visible=type==='block'||type==='plate';
+   if(type==='nut'){const f=mm/NUT_MM;nut.scale.setScalar(f);nut.position.set(mm/2,-29,0);}
+   else if(type==='rod'){rod.scale.set(mm,clamp(mm*.9,14,28),mm);rod.position.set(mm/2,-29,0);}
+   else if(type){block.scale.set(mm,type==='plate'?22:26,type==='plate'?16:12);block.position.set(mm/2,-29,0);}
+ }
  const floor=mesh(new THREE.PlaneGeometry(1300,1300),new THREE.ShadowMaterial({opacity:.23}),scene);floor.rotation.x=-Math.PI/2;floor.position.y=-52;floor.castShadow=false;
  const grid=new THREE.GridHelper(800,40,0x334a56,0x263b47);grid.position.set(120,-52.05,0);grid.material.transparent=true;grid.material.opacity=.28;scene.add(grid);
  const dimension=new THREE.Group();model.add(dimension);
@@ -351,128 +515,418 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
  const matchLabel=document.createElement('div');matchLabel.className='match-label';viewport.appendChild(matchLabel);
  const specs=[['Зовнішні губки',[0,-36,3]],['Внутрішні губки',[0,30,0]],['Основна шкала',[110,12,2]],['Ноніус',[35,-9,3]],['Глибиномір',[END+20,7,0]],['Фіксатор',[50,19,0]]];
  const labels=specs.map(([text,p])=>{const el=document.createElement('div');el.className='scene-part-label';el.textContent=text;el.hidden=true;viewport.appendChild(el);return{el,p:new THREE.Vector3(...p)};});
- let units=700,hasSample=true,showLabels=false,mode='home',running=false,animation=null;
- let target=new THREE.Vector3(),azimuth=.07,elevation=.17,distance=350,drag=null,pinch=null;
- const pointers=new Map(),raycaster=new THREE.Raycaster(),mouse=new THREE.Vector2();
- function cameraPosition(){camera.position.set(target.x+distance*Math.sin(azimuth)*Math.cos(elevation),target.y+distance*Math.sin(elevation),target.z+distance*Math.cos(azimuth)*Math.cos(elevation));camera.lookAt(target);}
- function fit(width,height){const tan=Math.tan(THREE.MathUtils.degToRad(17.5));return Math.max(width/(2*tan*camera.aspect),height/(2*tan));}
- function setView(type){mode=type;const q=units/20;
-   if(type==='scale'){target.set(q+ZERO+19.5,-.7,2);azimuth=0;elevation=.025;distance=fit(62,31);}
-   else{target.set((END+q-12)/2,-10,0);azimuth=.12;elevation=.24;distance=fit(END+q+45,110);}
-   $('homeView').setAttribute('aria-pressed',String(type==='home'));$('scaleView').setAttribute('aria-pressed',String(type==='scale'));draw();
+
+ // ---------------------------------------------------------------------------
+ // Shared core (identical in the caliper and micrometer pages).
+ // Rendering on demand, camera rig with zoom-to-cursor and pan, pointer
+ // controls, and the practice-mode session (tasks, feedback, stats, CSV log).
+ // ---------------------------------------------------------------------------
+ let needsRender=true,frameId=0,lastFrame=0;
+ const tickers=[];
+ function invalidate(){needsRender=true;schedule();}
+ function schedule(){if(!frameId)frameId=requestAnimationFrame(onFrame);}
+ function onFrame(now){
+   frameId=0;
+   const dt=lastFrame?Math.min(.08,(now-lastFrame)/1000):0;
+   let busy=false;for(const t of tickers)if(t(dt))busy=true;
+   lastFrame=busy?now:0;if(busy)schedule();
+   if(needsRender){needsRender=false;render();}
+ }
+ const cam={target:new THREE.Vector3(),azimuth:0,elevation:0,distance:100};
+ let camCustom=false; // true once the user orbits, zooms or pans away from a preset view
+ const raycaster=new THREE.Raycaster(),ndc=new THREE.Vector2();
+ function placeCamera(){const c=cam;camera.position.set(c.target.x+c.distance*Math.sin(c.azimuth)*Math.cos(c.elevation),c.target.y+c.distance*Math.sin(c.elevation),c.target.z+c.distance*Math.cos(c.azimuth)*Math.cos(c.elevation));camera.lookAt(c.target);camera.updateMatrixWorld();}
+ function shown(o){for(;o;o=o.parent)if(!o.visible)return false;return true;}
+ function rayAt(x,y){const r=canvas.getBoundingClientRect();ndc.set((x-r.left)/r.width*2-1,-(y-r.top)/r.height*2+1);placeCamera();raycaster.setFromCamera(ndc,camera);return raycaster;}
+ function hitAt(x,y,root){return rayAt(x,y).intersectObject(root,true).find(h=>h.object.isMesh&&shown(h.object))||null;}
+ // World point under the cursor: the model surface if there is one, otherwise the focus plane.
+ function anchorAt(x,y){
+   const hit=hitAt(x,y,model);if(hit)return hit.point.clone();
+   const n=new THREE.Vector3().subVectors(camera.position,cam.target).normalize(),p=new THREE.Vector3();
+   return raycaster.ray.intersectPlane(new THREE.Plane().setFromNormalAndCoplanarPoint(n,cam.target),p)||cam.target.clone();
+ }
+ // Scaling the whole rig about the anchor keeps that point fixed on screen.
+ function zoomBy(f,x,y){
+   const d0=cam.distance,d1=clamp(d0*f,CAM.min,CAM.max);if(Math.abs(d1-d0)<1e-9)return;
+   if(x!==undefined){const p=anchorAt(x,y);cam.target.sub(p).multiplyScalar(d1/d0).add(p);}
+   cam.distance=d1;cam.target.clamp(CAM.lo,CAM.hi);camCustom=true;invalidate();
+ }
+ function panBy(dx,dy){
+   placeCamera();
+   const per=2*cam.distance*Math.tan(THREE.MathUtils.degToRad(camera.fov/2))/Math.max(1,viewport.clientHeight);
+   const right=new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld,0),up=new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld,1);
+   cam.target.addScaledVector(right,-dx*per).addScaledVector(up,dy*per).clamp(CAM.lo,CAM.hi);camCustom=true;invalidate();
+ }
+ function orbitTo(az,el){cam.azimuth=az;cam.elevation=clamp(el,-CAM.maxElevation,CAM.maxElevation);camCustom=true;invalidate();}
+ function installControls({grab,dblclick}){
+   const pointers=new Map();let drag=null,pinch=null;
+   const endGrab=()=>{if(drag&&drag.type==='grab'&&drag.h.end)drag.h.end();};
+   canvas.addEventListener('contextmenu',e=>e.preventDefault());
+   canvas.addEventListener('pointerdown',e=>{
+     if(document.activeElement!==canvas)canvas.focus({preventScroll:true});
+     try{canvas.setPointerCapture(e.pointerId);}catch(_){}
+     pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+     if(pointers.size===2){const[a,b]=[...pointers.values()];pinch={span:Math.max(10,Math.hypot(a.x-b.x,a.y-b.y)),x:(a.x+b.x)/2,y:(a.y+b.y)/2};endGrab();drag=null;return;}
+     if(pointers.size>2)return;
+     if(e.pointerType==='mouse'&&(e.button===1||e.button===2)){e.preventDefault();drag={type:'pan',x:e.clientX,y:e.clientY};return;}
+     const h=grab?grab(e):null;
+     drag=h?{type:'grab',x:e.clientX,y:e.clientY,h}:{type:'orbit',x:e.clientX,y:e.clientY,az:cam.azimuth,el:cam.elevation};
+   });
+   canvas.addEventListener('pointermove',e=>{
+     if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+     if(pinch&&pointers.size===2){
+       const[a,b]=[...pointers.values()],span=Math.max(10,Math.hypot(a.x-b.x,a.y-b.y)),x=(a.x+b.x)/2,y=(a.y+b.y)/2;
+       panBy(x-pinch.x,y-pinch.y);zoomBy(pinch.span/span,x,y);Object.assign(pinch,{span,x,y});return;
+     }
+     if(!drag)return;
+     const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+     if(drag.type==='pan'){panBy(dx,dy);drag.x=e.clientX;drag.y=e.clientY;}
+     else if(drag.type==='grab')drag.h.move(dx,dy,e);
+     else orbitTo(drag.az-dx*.006,drag.el+dy*.006);
+   });
+   function release(e){
+     if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);
+     if(pinch&&pointers.size===1){const[p]=[...pointers.values()];drag={type:'orbit',x:p.x,y:p.y,az:cam.azimuth,el:cam.elevation};}
+     else if(!pointers.size){endGrab();drag=null;}
+     if(pointers.size<2)pinch=null;
+   }
+   canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);
+   canvas.addEventListener('wheel',e=>{
+     e.preventDefault();
+     const k=e.deltaMode===1?16:e.deltaMode===2?Math.max(1,viewport.clientHeight):1,dx=e.deltaX*k,dy=e.deltaY*k;
+     if(!e.ctrlKey&&Math.abs(dx)>Math.abs(dy)){panBy(-dx,0);return;}
+     zoomBy(Math.exp(clamp(dy,-300,300)*(e.ctrlKey?.012:.0015)),e.clientX,e.clientY);
+   },{passive:false});
+   if(dblclick)canvas.addEventListener('dblclick',dblclick);
  }
  function positionLabel(el,pos,offset=0){const p=pos.clone().project(camera),x=(p.x+1)*viewport.clientWidth/2,y=(1-p.y)*viewport.clientHeight/2+offset;el.style.left=x+'px';el.style.top=y+'px';el.style.visibility=p.z>1||x<25||x>viewport.clientWidth-25||y<35||y>viewport.clientHeight-42?'hidden':'visible';}
+ function announce(text){const a=$('announcement');a.textContent='';setTimeout(()=>{a.textContent=text;},30);}
+
+ // Practice session. The instrument supplies task generation, error diagnosis and 3D hooks.
+ function createPractice(cfg){
+   const ui={num:$('taskNumber'),score:$('taskScore'),text:$('taskText'),form:$('answerForm'),input:$('answer'),check:$('check'),fb:$('feedback'),fbTitle:$('feedbackTitle'),fbText:$('feedbackText'),hint:$('hint'),reveal:$('reveal'),next:$('nextTask'),first:$('statFirst'),streak:$('statStreak'),best:$('statBest'),tally:$('errorTally'),logCount:$('logCount'),logList:$('logList'),exportBtn:$('exportLog'),clearBtn:$('clearLog')};
+   const blank=()=>({seq:0,answered:0,first:0,streak:0,best:0,errors:{},log:[]});
+   let stats=load()||blank(),task=null,feedbackState=null,clearTimer=0;
+   function load(){try{const s=JSON.parse(sessionStorage.getItem(cfg.key)||'null');return s&&Array.isArray(s.log)&&Number.isFinite(s.seq)?s:null;}catch(e){return null;}}
+   function save(){try{sessionStorage.setItem(cfg.key,JSON.stringify(stats));}catch(e){}}
+   const two=n=>String(n).padStart(2,'0');
+   const stamp=d=>`${d.getFullYear()}-${two(d.getMonth()+1)}-${two(d.getDate())} ${two(d.getHours())}:${two(d.getMinutes())}:${two(d.getSeconds())}`;
+   function parse(raw){
+     const s=String(raw).replace(/\s+/g,'').replace(/(мм|mm)$/i,'').replace(',','.');
+     if(!/^(\d+(\.\d*)?|\.\d+)$/.test(s))return null;
+     const v=Number(s);return Number.isFinite(v)?v:null;
+   }
+   const plain=html=>html.replace(/<[^>]+>/g,'');
+   function feedback(kind,title,html){
+     feedbackState={kind,title,html};
+     ui.fb.hidden=false;ui.fb.dataset.kind=kind;ui.fbTitle.textContent=title;ui.fbText.innerHTML=html;
+     announce(`${title}. ${plain(html)}`);
+   }
+   function clearFeedback(){feedbackState=null;ui.fb.hidden=true;ui.fbTitle.textContent='';ui.fbText.textContent='';}
+   function record(result,extra={}){
+     stats.log.push({no:task.no,time:stamp(new Date()),value:cfg.format(task),answer:extra.answer||'',attempt:task.attempts,result,type:extra.type||'',label:extra.label||'',hint:task.hint?1:0,secs:Math.round((performance.now()-task.started)/100)/10});
+     if(stats.log.length>1000)stats.log.splice(0,stats.log.length-1000);
+     save();renderStats();
+   }
+   function counted(){if(!task.counted){task.counted=true;stats.answered++;}}
+   function next(){
+     if(task&&!task.done&&!task.attempts)record('пропущено');
+     stats.seq++;
+     task={...cfg.generate(task),no:stats.seq,attempts:0,done:false,solved:false,revealed:false,hint:false,counted:false,started:performance.now()};
+     save();ui.input.value='';clearFeedback();cfg.show(task);renderTask();
+   }
+   function check(){
+     if(!task)return;
+     if(task.done){next();focusAnswer();return;}
+     const a=parse(ui.input.value);
+     if(a===null){feedback('info','Не вдалося прочитати число',cfg.formatHint);return;}
+     task.attempts++;counted();
+     const r=cfg.classify(task,a),answer=cfg.formatAnswer(a);
+     if(r.type==='correct'){
+       task.done=task.solved=true;
+       if(task.attempts===1){stats.first++;stats.streak++;stats.best=Math.max(stats.best,stats.streak);}
+       record('правильно',{answer});
+       feedback('ok',task.attempts===1?`Правильно: ${cfg.format(task)} мм`:`Правильно з ${task.attempts}-ї спроби: ${cfg.format(task)} мм`,cfg.explain(task));
+       cfg.reveal(task);
+     }else{
+       if(task.attempts===1)stats.streak=0;
+       stats.errors[r.type]=(stats.errors[r.type]||0)+1;
+       record('помилка',{answer,type:r.type,label:cfg.labels[r.type]||r.type});
+       feedback('bad',r.title,r.text+(task.attempts>=2?' Якщо не виходить, відкрийте відповідь і розберіть її на схемі.':''));
+       ui.input.select();
+     }
+     save();renderTask();
+   }
+   function reveal(){
+     if(!task||task.done)return;
+     counted();stats.streak=0;task.done=task.revealed=true;
+     record('відповідь показано');
+     feedback('reveal',`Відповідь: ${cfg.format(task)} мм`,cfg.explain(task));
+     cfg.reveal(task);save();renderTask();
+   }
+   function hint(){if(!task||task.done)return;task.hint=true;const h=cfg.hint(task);feedback('info',h.title,h.text);}
+   function focusAnswer(){if(matchMedia('(pointer:fine)').matches)ui.input.focus({preventScroll:true});}
+   function renderTask(){
+     ui.num.textContent=String(task.no);
+     ui.text.textContent=cfg.prompt(task);
+     ui.score.textContent=task.solved?(task.attempts===1?'✓ з першої спроби':`✓ зі спроби ${task.attempts}`):task.revealed?'відповідь показано':task.attempts?`спроба ${task.attempts+1}`:'';
+     ui.input.readOnly=task.done;
+     ui.check.textContent=task.done?'Далі':'Перевірити';
+     ui.hint.disabled=ui.reveal.disabled=task.done;
+     ui.next.classList.toggle('is-ready',task.done);
+     ui.next.textContent=task.done?'Наступне завдання':'Інше завдання';
+   }
+   function renderStats(){
+     ui.first.textContent=`${stats.first} з ${stats.answered}`;
+     ui.streak.textContent=String(stats.streak);ui.best.textContent=String(stats.best);
+     const rows=Object.entries(stats.errors).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]);
+     ui.tally.hidden=!rows.length;
+     ui.tally.innerHTML=rows.length?`<h3>ТИПОВІ ПОМИЛКИ</h3><ul>${rows.map(([t,n])=>`<li><span>${cfg.labels[t]||t}</span><span>${n}</span></li>`).join('')}</ul>`:'';
+     ui.logCount.textContent=String(stats.log.length);
+     const recent=stats.log.slice(-60).reverse();
+     ui.logList.innerHTML=recent.length?recent.map(e=>{
+       const cls=e.result==='правильно'?'ok':e.result==='помилка'?'bad':'';
+       const what=e.result==='помилка'?e.label:e.result;
+       return `<li><span class="n">№${e.no}</span><span class="v">${e.value} → ${e.answer||'—'}</span><span class="t">${String(e.secs).replace('.',',')} с</span><span class="r ${cls}">${what}${e.hint?' · з підказкою':''}</span></li>`;
+     }).join(''):'<li class="empty">Поки що порожньо.</li>';
+     ui.exportBtn.disabled=!stats.log.length;
+   }
+   function exportCsv(){
+     const head=['№ завдання','Час','Прилад','Правильне значення, мм','Відповідь, мм','Спроба','Результат','Тип помилки','Підказка','Секунд від початку завдання'];
+     const rows=stats.log.map(e=>[e.no,e.time,cfg.instrument,e.value,e.answer,e.attempt,e.result,e.label,e.hint?'так':'',String(e.secs).replace('.',',')]);
+     const esc=v=>{const s=String(v??'');return/[;"\r\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s;};
+     const csv='\ufeff'+[head,...rows].map(r=>r.map(esc).join(';')).join('\r\n');
+     const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+     a.download=`${cfg.file}-${stamp(new Date()).slice(0,10)}.csv`;document.body.appendChild(a);a.click();
+     setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);
+   }
+   function clearLog(){
+     if(!clearTimer){ui.clearBtn.textContent='Натисніть ще раз, щоб очистити';clearTimer=setTimeout(()=>{clearTimer=0;ui.clearBtn.textContent='Очистити журнал';},3500);return;}
+     clearTimeout(clearTimer);clearTimer=0;ui.clearBtn.textContent='Очистити журнал';
+     const seq=stats.seq;stats=blank();stats.seq=seq;save();renderStats();announce('Журнал і статистику очищено.');
+   }
+   ui.form.addEventListener('submit',e=>{e.preventDefault();check();});
+   ui.reveal.addEventListener('click',reveal);ui.hint.addEventListener('click',hint);
+   ui.next.addEventListener('click',()=>{next();focusAnswer();});
+   ui.exportBtn.addEventListener('click',exportCsv);ui.clearBtn.addEventListener('click',clearLog);
+   renderStats();
+   return {
+     start(){if(!task)next();else{cfg.show(task);if(task.done)cfg.reveal(task,true);renderTask();if(feedbackState){const f=feedbackState;feedback(f.kind,f.title,f.html);}}},
+     get task(){return task;},
+     next,check,reveal
+   };
+ }
+
+
+ let units=700,hasSample=true,showLabels=false,mode='home',running=false,animation=null;
+ let practiceOn=false,revealHints=false,zeroHint=false,exploreState=null;
+ const hintsShown=()=>!practiceOn||revealHints;
+ // Reading helpers: n whole millimetres, k vernier divisions (0..19).
+ const split=u=>({n:Math.floor(u/STEP),k:u%STEP});
+ function vernierPhrase(k){return k===0?'збігаються «0» і «10»':k%2===0?`збіг на штриху «${k/2}»`:`збіг на штриху між «${(k-1)/2}» і «${(k+1)/2}»`;}
+ function matchShort(k){return k===0?'«0» і «10»':k%2===0?`«${k/2}»`:`між «${(k-1)/2}» і «${(k+1)/2}»`;}
+ function fit(width,height){const tan=Math.tan(THREE.MathUtils.degToRad(17.5));return Math.max(width/(2*tan*camera.aspect),height/(2*tan));}
+ function frameView(type){const q=units/STEP;
+   if(type==='scale'){cam.target.set(q+ZERO+19.5,-.7,2.04);cam.azimuth=0;cam.elevation=.025;cam.distance=fit(62,31);}
+   else{cam.target.set((END+q-12)/2,-10,0);cam.azimuth=.12;cam.elevation=.24;cam.distance=fit(END+q+45,110);}
+   camCustom=false;
+ }
+ function setView(type){mode=type;frameView(type);$('homeView').setAttribute('aria-pressed',String(type==='home'));$('scaleView').setAttribute('aria-pressed',String(type==='scale'));syncHighlights();invalidate();}
+ function syncOverlays(){dimension.visible=hintsShown();gapLabel.hidden=!(mode==='home'&&hintsShown());matchLabel.hidden=!(mode==='scale'&&hintsShown());}
+ function syncHighlights(){
+   const {n,k}=split(units),on=hintsShown()&&(mode==='scale'||practiceOn);
+   mainU.uHiA.value=on?n+2*k:-99;mainU.uHiB.value=on&&k===0?n+39:-99;
+   vernU.uHiA.value=on?k:-99;vernU.uHiB.value=on&&k===0?20:-99;
+   vernU.uZero.value=hintsShown()||zeroHint?1:0;
+   syncOverlays();invalidate();
+ }
+ function moveCarriage(v){
+   const prev=units;units=v;const q=v/STEP;
+   carriage.position.x=q;
+   const p=dimLine.geometry.attributes.position;p.setXYZ(1,q,-55,4);p.needsUpdate=true;dimLine.geometry.computeBoundingSphere();dimEnd.position.x=q;
+   if(mode==='scale')cam.target.x+=(v-prev)/STEP; // the close-up rides along with the slider
+   const {n,k}=split(v);matchLabel.textContent=`${matchShort(k)} · ${fmt(k*.05)} мм`;gapLabel.textContent=fmt(q)+' мм';
+   syncHighlights();
+ }
  function diagram(){
-   const q=units/20,n=Math.floor(units/20),k=units%20,px=6.45,zero=28;
+   const q=units/STEP,{n,k}=split(units),px=6.45,zero=28;
    let svg='<defs><clipPath id="rulerClip"><rect x="8" y="10" width="304" height="123" rx="5"/></clipPath></defs><rect x="8" y="10" width="304" height="59" rx="5" fill="#e3e6de"/><rect x="8" y="74" width="304" height="62" rx="5" fill="#344c4d"/><g clip-path="url(#rulerClip)">';
    for(let m=Math.max(0,n-4);m<=n+46;m++){
-     const x=zero+(m-q)*px,hit=m===n+2*k;
+     const x=zero+(m-q)*px,hit=m===n+2*k||(k===0&&m===n+39);
      svg+=`<path d="M${x} 66v-${m%5===0?25:16}" stroke="${hit?'#aa7819':'#778679'}" stroke-width="${hit?2:1}"/>`;
      if(m%5===0)svg+=`<text x="${x}" y="29" text-anchor="middle" fill="#41564b" font-size="11">${m}</text>`;
    }
    for(let j=0;j<=20;j++){
-     const x=zero+j*PITCH*px,hit=j===k;
+     const x=zero+j*PITCH*px,hit=j===k||(k===0&&j===20);
      svg+=`<path d="M${x} 77v${j%2===0?24:16}" stroke="${hit?'#ffe087':j===0?'#8cd1c1':'#b5c6bc'}" stroke-width="${hit?2:1}"/>`;
      if(j%2===0)svg+=`<text x="${x}" y="120" text-anchor="middle" fill="${hit?'#ffe087':'#c6d4c9'}" font-size="11">${j/2}</text>`;
    }
    const match=zero+k*PITCH*px;
    svg+=`<path d="M${match} 38V101" stroke="#d7a641" stroke-width="1.5" opacity=".72"/><path d="M${zero} 71V133" stroke="#8ccabe" stroke-dasharray="2 3" opacity=".7"/></g>`;
-   $('scaleDiagram').innerHTML=svg;$('scaleDiagram').setAttribute('aria-label',`Основна шкала ${n} мм. Збігається мала поділка ${k} ноніуса: ${fmt(k*.05)} мм. Разом ${fmt(q)} мм.`);
-   $('matchReading').textContent=`Збіг: поділка ${k} × 0,05 = ${fmt(k*.05)} мм`;
+   $('scaleDiagram').innerHTML=svg;
+   $('scaleDiagram').setAttribute('aria-label',`Основна шкала: ${n} мм. Ноніус: ${vernierPhrase(k)}, ${fmt(k*.05)} мм. Разом ${fmt(q)} мм.`);
+   $('matchReading').textContent=`Ноніус: ${vernierPhrase(k)} → ${fmt(k*.05)} мм`;
  }
- function update(value,announce=false){
-   if(!Number.isFinite(value))return;
-   units=Math.max(hasSample?NUT:0,Math.min(3000,Math.round(value)));
-   const q=units/20,n=Math.floor(units/20),k=units%20,contact=hasSample&&units===NUT;
-   carriage.position.x=q;nut.visible=hasSample;
-   mainMatch.position.x=ZERO+n+2*k;vernierMatch.position.x=ZERO+PITCH*k;
-   matchBridge.position.x=mainMatch.position.x;
-   mainMatch.visible=vernierMatch.visible=matchBridge.visible=mode==='scale';
-   const p=dimLine.geometry.attributes.position;p.setXYZ(1,q,-55,4);p.needsUpdate=true;dimLine.geometry.computeBoundingSphere();dimEnd.position.x=q;
+ function concealDiagram(on){$('scaleSection').classList.toggle('is-concealed',on);}
+ function update(value,announceIt=false){
+   if(!Number.isFinite(value)||practiceOn)return;
+   const v=clamp(Math.round(value),hasSample?NUT:0,MAX),q=v/STEP,{n,k}=split(v),contact=hasSample&&v===NUT;
+   moveCarriage(v);placeSpecimen(hasSample?'nut':null,NUT_MM);
    $('reading').textContent=fmt(q);$('mainReading').textContent=fmt(n);$('vernierReading').textContent=fmt(k*.05);
-   $('opening').value=units;$('opening').min=hasSample?NUT:0;
-   $('opening').setAttribute('aria-valuetext',fmt(q)+' мм');
-   $('exactValue').min=hasSample?NUT/20:0;if(document.activeElement!==$('exactValue'))$('exactValue').value=q.toFixed(2);
-   $('sampleToggle').checked=hasSample;$('minus').disabled=units===(hasSample?NUT:0);$('plus').disabled=units===3000;
-   $('measure').disabled=!hasSample;
-   $('contactStatus').textContent=!hasSample?'Вільне переміщення':contact?'Контакт · 24,70 мм':`До контакту ${fmt(q-NUT/20)} мм`;
+   $('opening').value=v;$('opening').min=hasSample?NUT:0;$('opening').setAttribute('aria-valuetext',fmt(q)+' мм');
+   $('exactValue').min=hasSample?NUT_MM:0;if(document.activeElement!==$('exactValue'))$('exactValue').value=q.toFixed(2);
+   $('sampleToggle').checked=hasSample;$('minus').disabled=v===(hasSample?NUT:0);$('plus').disabled=v===MAX;
+   $('measure').disabled=!hasSample||contact;
+   $('contactStatus').textContent=!hasSample?'Вільне переміщення':contact?'Контакт · 23,85 мм':`До контакту ${fmt(q-NUT_MM)} мм`;
    $('contactStatus').dataset.contact=String(contact);
-   gapLabel.textContent=fmt(q)+' мм';matchLabel.textContent=`Збіг: ${k} × 0,05 мм`;
-   document.querySelectorAll('[data-value]').forEach(el=>{el.setAttribute('aria-pressed',String(+el.dataset.value===units));el.disabled=hasSample&&+el.dataset.value<NUT;});
+   document.querySelectorAll('[data-value]').forEach(el=>el.setAttribute('aria-pressed',String(+el.dataset.value===v)));
    diagram();
-   if(mode==='scale')target.x=q+ZERO+19.5;
-   if(announce)$('announcement').textContent=`Розмір ${fmt(q)} міліметра${contact?', губки торкаються гайки':''}`;
-   draw();
+   if(announceIt)announce(`Розмір ${fmt(q)} міліметра${contact?', губки торкаються гайки':''}`);
  }
- function playUI(){$('play').textContent=running?'Пауза':animation?'Продовжити':'Показати вимірювання';$('play').setAttribute('aria-pressed',String(running));}
+ function playUI(){const b=$('play');b.querySelector('.label').textContent=running?'Пауза':animation?'Продовжити':'Показати вимірювання';b.querySelector('.icon').textContent=running?'❚❚':'▶';b.setAttribute('aria-pressed',String(running));}
  function stop(){running=false;animation=null;playUI();}
- function manual(value){stop();update(value,true);if(mode==='home')setView('home');}
- function demo(){if(running){running=false;playUI();return;}if(!animation){hasSample=true;animation={type:'demo',elapsed:0,stage:-1};update(700);setView('home');}running=true;playUI();}
+ function manual(value){stop();update(value,true);if(mode==='home'&&!camCustom){frameView('home');invalidate();}}
+ function demo(){if(practiceOn)return;if(running){running=false;playUI();return;}if(!animation){hasSample=true;animation={type:'demo',elapsed:0,stage:-1};update(700);setView('home');}running=true;playUI();schedule();}
  $('opening').addEventListener('input',e=>manual(+e.target.value));
- $('exactValue').addEventListener('input',e=>{if(e.target.value.trim()!==''&&Number.isFinite(+e.target.value))manual(+e.target.value*20);});
- $('exactValue').addEventListener('change',e=>{if(e.target.value.trim()!==''&&Number.isFinite(+e.target.value))manual(+e.target.value*20);e.target.value=(units/20).toFixed(2);});
- $('exactValue').addEventListener('blur',e=>e.target.value=(units/20).toFixed(2));
+ $('exactValue').addEventListener('input',e=>{if(e.target.value.trim()!==''&&Number.isFinite(+e.target.value))manual(+e.target.value*STEP);});
+ $('exactValue').addEventListener('change',e=>{if(e.target.value.trim()!==''&&Number.isFinite(+e.target.value))manual(+e.target.value*STEP);e.target.value=(units/STEP).toFixed(2);});
+ $('exactValue').addEventListener('blur',e=>e.target.value=(units/STEP).toFixed(2));
  $('minus').addEventListener('click',()=>manual(units-1));$('plus').addEventListener('click',()=>manual(units+1));
  $('sampleToggle').addEventListener('change',e=>{stop();hasSample=e.target.checked;update(units,true);});
- $('measure').addEventListener('click',()=>{if(!hasSample)return;animation={type:'measure',elapsed:0,from:units};running=true;playUI();setView('home');});
+ $('measure').addEventListener('click',()=>{if(!hasSample||units===NUT)return;animation={type:'measure',elapsed:0,from:units};running=true;playUI();setView('home');schedule();});
  $('play').addEventListener('click',demo);
- $('reset').addEventListener('click',()=>{stop();hasSample=true;update(700,true);setView('home');});
+ $('reset').addEventListener('click',()=>{if(practiceOn)return;stop();hasSample=true;update(700,true);setView('home');});
  $('homeView').addEventListener('click',()=>setView('home'));$('scaleView').addEventListener('click',()=>setView('scale'));
- $('labelsToggle').addEventListener('click',()=>{showLabels=!showLabels;$('labelsToggle').setAttribute('aria-pressed',String(showLabels));labels.forEach(x=>x.el.hidden=!showLabels);draw();});
- $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){$('announcement').textContent='Повноекранний режим недоступний у цьому вікні.';}});
- document.querySelectorAll('[data-value]').forEach(el=>el.addEventListener('click',()=>{manual(+el.dataset.value);setView('scale');}));
- canvas.addEventListener('pointerdown',e=>{
-   canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
-   if(pointers.size===2){const p=[...pointers.values()];pinch={span:Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y),distance};drag=null;return;}
-   const r=canvas.getBoundingClientRect();mouse.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);raycaster.setFromCamera(mouse,camera);
-   const slide=e.shiftKey||raycaster.intersectObjects(carriage.children,false).length>0;
-   // Screen projection of the actual X axis makes slider dragging natural at any camera angle.
-   const p0=new THREE.Vector3(units/20,-4,3).project(camera),p1=new THREE.Vector3(units/20+1,-4,3).project(camera);
-   const sx=(p1.x-p0.x)*r.width/2,sy=-(p1.y-p0.y)*r.height/2;
-   drag={x:e.clientX,y:e.clientY,azimuth,elevation,units,slide,sx,sy};if(slide)stop();
+ $('labelsToggle').addEventListener('click',()=>{showLabels=!showLabels;$('labelsToggle').setAttribute('aria-pressed',String(showLabels));labels.forEach(x=>x.el.hidden=!showLabels);invalidate();});
+ $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){announce('Повноекранний режим недоступний у цьому вікні.');}});
+ document.addEventListener('fullscreenchange',()=>{const on=!!document.fullscreenElement,b=$('fullscreen');b.setAttribute('aria-label',on?'Вийти з повноекранного режиму':'На весь екран');b.title=b.getAttribute('aria-label');});
+ document.querySelectorAll('[data-value]').forEach(el=>el.addEventListener('click',()=>{
+   const v=+el.dataset.value;
+   if(hasSample&&v<NUT){hasSample=false;announce('Гайку прибрано, щоб губки могли зійтися ближче.');}
+   manual(v);setView('scale');
+ }));
+ installControls({
+   grab(e){
+     if(practiceOn||e.pointerType==='mouse'&&e.button!==0)return null;
+     if(!e.shiftKey&&!hitAt(e.clientX,e.clientY,carriage))return null;
+     stop();placeCamera();
+     // Screen projection of the model X axis makes slider dragging natural at any camera angle.
+     const r=canvas.getBoundingClientRect(),p0=new THREE.Vector3(units/STEP,-4,3).project(camera),p1=new THREE.Vector3(units/STEP+1,-4,3).project(camera);
+     const sx=(p1.x-p0.x)*r.width/2,sy=-(p1.y-p0.y)*r.height/2,start=units;
+     return{move(dx,dy){const L=sx*sx+sy*sy,delta=L>.3?(dx*sx+dy*sy)/L:dx*.2;update(start+delta*STEP);},end(){if(units!==start)announce(`Розмір ${fmt(units/STEP)} міліметра`);}};
+   },
+   dblclick(){setView(mode==='home'?'scale':'home');}
  });
- canvas.addEventListener('pointermove',e=>{
-   if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
-   if(pointers.size===2&&pinch){const p=[...pointers.values()],span=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);distance=Math.max(35,Math.min(1100,pinch.distance*pinch.span/Math.max(10,span)));draw();return;}
-   if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
-   if(drag.slide){const length=drag.sx*drag.sx+drag.sy*drag.sy;const delta=length>.3?(dx*drag.sx+dy*drag.sy)/length:dx*.2;update(drag.units+delta*20);}
-   else{azimuth=drag.azimuth-dx*.006;elevation=Math.max(-1.25,Math.min(1.25,drag.elevation+dy*.006));draw();}
+ window.addEventListener('keydown',e=>{
+   if(e.ctrlKey||e.metaKey||e.altKey)return;
+   const t=e.target;
+   if(practiceOn){
+     if(t!==canvas&&t!==document.body)return;
+     const k=e.key;let used=true;
+     if(k==='ArrowLeft')panBy(60,0);else if(k==='ArrowRight')panBy(-60,0);else if(k==='ArrowUp')panBy(0,60);else if(k==='ArrowDown')panBy(0,-60);
+     else if(k==='+'||k==='=')zoomBy(1/1.25);else if(k==='-'||k==='_')zoomBy(1.25);else used=false;
+     if(used)e.preventDefault();return;
+   }
+   if(t.closest&&t.closest('input,select,textarea,button,summary,a,[contenteditable]'))return;
+   if(e.code==='Space'){e.preventDefault();demo();}
+   else if(e.code==='ArrowRight'){e.preventDefault();manual(units+(e.shiftKey?20:1));}
+   else if(e.code==='ArrowLeft'){e.preventDefault();manual(units-(e.shiftKey?20:1));}
+   else if(e.key.toLowerCase()==='r')$('reset').click();
  });
- function end(e){pointers.delete(e.pointerId);drag=null;pinch=null;}
- canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
- canvas.addEventListener('wheel',e=>{e.preventDefault();distance=Math.max(35,Math.min(1100,distance*Math.exp(e.deltaY*.001)));draw();},{passive:false});
- canvas.addEventListener('dblclick',()=>setView(mode==='home'?'scale':'home'));
- window.addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA|BUTTON/.test(e.target.tagName))return;if(e.code==='Space'){e.preventDefault();demo();}if(e.code==='ArrowRight'){e.preventDefault();manual(units+(e.shiftKey?20:1));}if(e.code==='ArrowLeft'){e.preventDefault();manual(units-(e.shiftKey?20:1));}if(e.key.toLowerCase()==='r')$('reset').click();});
- function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();if(!drag)setView(mode);}
+ function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();if(!camCustom)frameView(mode);invalidate();}
  new ResizeObserver(resize).observe(viewport);
- function draw(){
-   cameraPosition();const q=units/20;
-   mainMatch.visible=vernierMatch.visible=matchBridge.visible=mode==='scale';
-   positionLabel(gapLabel,new THREE.Vector3(q/2,-58,4),18);gapLabel.hidden=mode!=='home';
-   positionLabel(matchLabel,new THREE.Vector3(mainMatch.position.x,-7,4),29);matchLabel.hidden=mode!=='scale';
+ function render(){
+   placeCamera();const q=units/STEP,{n,k}=split(units);
+   syncOverlays();
+   positionLabel(gapLabel,new THREE.Vector3(q/2,-58,4),18);
+   positionLabel(matchLabel,new THREE.Vector3(ZERO+n+2*k,-7,4),29);
    if(showLabels){labels[0].p.x=q/2;labels[1].p.x=q/2;labels[3].p.x=q+28;labels[4].p.x=END+q/2;labels[5].p.x=q+22;labels.forEach(({el,p})=>positionLabel(el,p,-20));}
    renderer.render(scene,camera);
  }
- const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
- let previous=performance.now();
- function animate(now){requestAnimationFrame(animate);const dt=Math.max(0,Math.min(.08,(now-previous)/1000));previous=now;
-   if(running&&animation){
-     animation.elapsed+=dt*Number($('speed').value);const t=animation.elapsed;
-     if(animation.type==='measure'){
-       update(animation.from+(NUT-animation.from)*smooth(t/2));
-       if(t>=2){update(NUT,true);stop();setView('scale');}
-     }else{
-       const stage=t<2?0:t<6?1:t<8?2:t<16?3:4;
-       if(stage!==animation.stage){animation.stage=stage;setView(stage===3?'scale':'home');}
-       const value=t<2?700:t<6?700+(NUT-700)*smooth((t-2)/4):t<16?NUT:NUT+(700-NUT)*smooth((t-16)/4);
-       update(value);
-       if(t>=20){stop();update(700);setView('home');$('announcement').textContent='Демонстрацію завершено. Розмір гайки — 24,70 мм.';}
-     }
+ const smooth=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};
+ tickers.push(dt=>{
+   if(!(running&&animation))return false;
+   animation.elapsed+=dt*Number($('speed').value);const t=animation.elapsed;
+   if(animation.type==='measure'){
+     update(animation.from+(NUT-animation.from)*smooth(t/2));
+     if(t>=2){update(NUT,true);stop();setView('scale');return false;}
+   }else{
+     const stage=t<2?0:t<6?1:t<8?2:t<16?3:4;
+     if(stage!==animation.stage){animation.stage=stage;setView(stage===3?'scale':'home');}
+     update(t<2?700:t<6?700+(NUT-700)*smooth((t-2)/4):t<16?NUT:NUT+(700-NUT)*smooth((t-16)/4));
+     if(t>=20){stop();update(700);setView('home');announce('Демонстрацію завершено. Розмір гайки — 23,85 мм.');return false;}
    }
- }
- update(700);resize();requestAnimationFrame(animate);
-})();
+   return true;
+ });
 
+ // ---- Practice mode ------------------------------------------------------------
+ const SPECIMEN={nut:'гайці',rod:'валику',block:'бруску',plate:'пластині'};
+ function generate(prev){
+   for(let i=0;i<60;i++){
+     const kind=pick(['nut','nut','rod','rod','block','block','block']);
+     const [lo,hi]=kind==='nut'?[8,34]:kind==='rod'?[3,40]:[1,140];
+     const r=Math.random(),k=r<.3?pick([0,1,18,19]):r<.65?1+2*Math.floor(Math.random()*10):Math.floor(Math.random()*20);
+     const v=(lo+Math.floor(Math.random()*(hi-lo)))*STEP+k;
+     if(v<20||v>MAX||(prev&&v===prev.units))continue;
+     return{units:v,specimen:kind==='block'&&v<6*STEP?'plate':kind};
+   }
+   return{units:647,specimen:'rod'};
+ }
+ const LABELS={units:'Сантиметри замість міліметрів',no_vernier:'Не додано ноніус',vernier_ten:'Штрих «10» ноніуса',main_at_match:'Цілі мм у місці збігу',digit_x005:'Цифру ноніуса помножено на 0,05',index_hundredths:'Номер штриха записано як соті',neighbor:'Сусідній штрих ноніуса',mm_boundary:'Межа міліметра (±1 мм)',mm_other:'Цілі міліметри',resolution:'Не кратно 0,05 мм',fraction_wrong:'Дробова частина',other:'Інше'};
+ const RULE='Порядок відліку: 1) цілі міліметри — останній штрих основної шкали ліворуч від нуля ноніуса; 2) штрих ноніуса, що збігається зі штрихом основної шкали: цифра біля нього — десяті частки мм, ненумерований штрих між цифрами додає 0,05 мм.';
+ function classify(u,a){
+   const T=u/STEP,{n,k}=split(u),d=a-T,near=(x,y)=>Math.abs(x-y)<5e-4;
+   const mult=near(a*STEP,Math.round(a*STEP)),steps=Math.round(Math.abs(d)*STEP);
+   const out=(type,title,text)=>({type,title,text});
+   if(near(a,T))return{type:'correct'};
+   if(near(a*10,T))return out('units','Відповідь схожа на сантиметри','Шкали градуйовано в міліметрах. Запишіть відлік у мм — число в 10 разів більше.');
+   const neighbor=()=>out('neighbor',steps===1?'Сусідній штрих ноніуса':'Штрих за дві поділки від збігу',`Відлік відрізняється на ${steps===1?'одну поділку (0,05 мм)':'дві поділки (0,10 мм)'}. Наблизьте шкалу й порівняйте штрихи ${d>0?'ліворуч':'праворуч'} від обраного: у точному збігу штрих ноніуса продовжує штрих основної шкали без зсуву, а в сусідніх штрихів зсуви протилежні.`);
+   if(k<=3&&mult&&(steps===1||steps===2))return neighbor();
+   if(k>=3&&near(a,n))return out('no_vernier','Не додано показ ноніуса','Ціле число міліметрів — лише перша частина відліку. Знайдіть штрих ноніуса, що збігається зі штрихом основної шкали, і додайте дробову частину.');
+   if(k===0&&near(d,1))return out('vernier_ten','Штрих «10» — це кінець ноніуса','Коли з основною шкалою збігаються і нуль, і «10» ноніуса, дробова частина дорівнює 0,00. «10» відповідає 1,00 мм — це вже наступний цілий міліметр.');
+   if(k>=1&&(near(a,n+2*k)||near(a,n+2*k+k*.05)))return out('main_at_match','Цілі міліметри читають біля нуля ноніуса','Число на основній шкалі в місці збігу штрихів — не відлік. Цілі міліметри — це останній штрих основної шкали ліворуч від нуля ноніуса.');
+   if(k>=4&&(near(a,n+.05*Math.floor(k/2))||near(a,n+.05*Math.ceil(k/2))))return out('digit_x005','Цифру ноніуса помножено на 0,05','Цифри на ноніусі вже означають десяті частки міліметра: «4» — це 0,40 мм, а не 4 × 0,05. Ненумерований штрих між цифрами додає ще 0,05 мм.');
+   if(k>=4&&near(a,n+k/100))return out('index_hundredths','Номер штриха записано як соті','Кожен штрих ноніуса — це 0,05 мм, тому номер штриха не можна дописати як соті. Читайте за цифрами: цифра — десяті частки мм, проміжний штрих — ще 0,05.');
+   if(mult&&(steps===1||steps===2))return neighbor();
+   if(mult&&near(d,Math.round(d))){
+     if(near(d,1))return out('mm_boundary','Зайвий міліметр','Цілі міліметри — останній штрих основної шкали ліворуч від нуля ноніуса. Якщо нуль ноніуса лише наближається до штриха, цей міліметр ще не пройдено.');
+     if(near(d,-1))return out('mm_boundary','Пропущено міліметр','Нуль ноніуса вже пройшов черговий штрих основної шкали. Рахуйте цілі міліметри до останнього штриха ліворуч від нуля ноніуса, навіть якщо він зовсім поруч.');
+     return out('mm_other','Помилка в цілих міліметрах',`Дробова частина правильна. Перевірте, від якої оцифрованої позначки (0, 10, 20…) ви відлічували міліметри до нуля ноніуса.${near(Math.abs(d)%10,0)?' Схоже, переплутано десяток.':''}`);
+   }
+   if(!mult)return out('resolution','Відлік має бути кратним 0,05 мм',`Ціна поділки ноніуса — 0,05 мм, тому друга цифра після коми може бути лише 0 або 5.${Math.abs(d)<.1?' Ви зовсім близько.':''}`);
+   if(near(Math.floor(a+1e-9),n))return out('fraction_wrong','Дробова частина неправильна','Цілі міліметри правильні. Знайдіть штрих ноніуса, що точно збігається зі штрихом основної шкали: цифра біля нього — десяті частки мм, ненумерований штрих між цифрами додає 0,05 мм.');
+   return out('other','Неправильно',RULE);
+ }
+ function explain(u){
+   const {n,k}=split(u);
+   return `<b>${n} мм</b> на основній шкалі (останній штрих перед нулем ноніуса) + <b>${fmt(k*.05)} мм</b> на ноніусі: ${vernierPhrase(k)}. Разом <b>${fmt(u/STEP)} мм</b>.`+(k>=18?' Нуль ноніуса майже дійшов до наступного штриха, але цей міліметр ще не пройдено.':k>0&&k<=2?' Нуль ноніуса щойно пройшов штрих основної шкали.':'');
+ }
+ const practice=createPractice({
+   key:'caliper-practice-v1',file:'shtanhentsyrkul-praktyka',instrument:'Штангенциркуль 0,05 мм',
+   formatHint:'Введіть відлік у міліметрах, наприклад 23,85.',labels:LABELS,
+   format:t=>fmt(t.units/STEP),formatAnswer:a=>a.toLocaleString('uk-UA',{minimumFractionDigits:2,maximumFractionDigits:3}),
+   generate,prompt:t=>`Губки зведено на ${SPECIMEN[t.specimen]}. Наблизьте шкалу й зчитайте показ штангенциркуля.`,
+   classify:(t,a)=>classify(t.units,a),explain:t=>explain(t.units),
+   hint(){zeroHint=true;if(mode!=='scale')setView('scale');else syncHighlights();
+     return{title:'Підказка',text:'Нуль ноніуса підсвічено бірюзовим. Цілі міліметри — останній штрих основної шкали ліворуч від нього. Далі шукайте штрих ноніуса, який продовжує штрих основної шкали без зсуву: у сусідніх штрихів зсуви протилежні.'};},
+   show(t){revealHints=false;zeroHint=false;moveCarriage(t.units);placeSpecimen(t.specimen,t.units/STEP);frameView(mode);concealDiagram(true);syncHighlights();invalidate();},
+   reveal(t,restoring){revealHints=true;diagram();concealDiagram(false);if(t.revealed&&!restoring&&mode!=='scale')setView('scale');syncHighlights();invalidate();}
+ });
+ function setMode(on){
+   if(on===practiceOn)return;
+   stop();
+   if(on){exploreState={units,hasSample};practiceOn=true;app.classList.add('is-practice');practice.start();}
+   else{practiceOn=false;revealHints=false;zeroHint=false;app.classList.remove('is-practice');concealDiagram(false);hasSample=exploreState?exploreState.hasSample:true;update(exploreState?exploreState.units:700);frameView(mode);}
+   $('modeExplore').setAttribute('aria-pressed',String(!on));$('modePractice').setAttribute('aria-pressed',String(on));
+   canvas.setAttribute('aria-label',on?'3D-модель для самостійного відліку. Перетягніть, щоб обертати камеру; колесо миші наближає до курсора.':'3D-модель. Перетягніть фон, щоб обертати камеру, або рухому рамку, щоб змінити розкриття.');
+   syncHighlights();invalidate();
+   announce(on?'Режим практики. Відлік приховано.':'Режим дослідження.');
+ }
+ $('modeExplore').addEventListener('click',()=>setMode(false));$('modePractice').addEventListener('click',()=>setMode(true));
+ update(700);resize();setView('home');
+ window.caliperState=()=>({steps:units,reading:units/STEP,main:split(units).n,vernierDivision:split(units).k,carriageX:carriage.position.x,view:mode,practice:practiceOn,playing:running});
+
+})();
 </script>
 </body>
 </html>

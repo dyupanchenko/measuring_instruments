@@ -74,7 +74,6 @@ h1{margin:0;font-size:27px;line-height:1.1;letter-spacing:-.65px;font-weight:550
 .presets button.active,.presets button[aria-pressed=true]{color:#284f56;background:#e0e8dc}
 .playback{display:flex;align-items:center;gap:14px;margin-top:21px}
 .primary-button{border:0;background:#304e57;color:#f4f5ed;border-radius:4px;min-height:41px;padding:0 17px;font-size:12px;font-weight:550;flex:1;letter-spacing:.1px}
-.primary-button>span{font-size:10px;margin-right:7px}
 .primary-button:hover{background:#3f6570}
 .text-button{padding:9px 0;border:0;background:none;color:#7b8584;font-size:11px}
 .text-button:hover{color:#304e57}
@@ -84,7 +83,8 @@ h1{margin:0;font-size:27px;line-height:1.1;letter-spacing:-.65px;font-weight:550
 .mini-accent{width:16px;height:3px;background:#c9b265;display:block}
 #scaleDiagram{display:block;width:100%;height:auto;margin:12px 0 8px;overflow:visible;font-family:inherit}
 .scale-section p{margin:0;color:#7e8782;font-size:10px;line-height:1.65}
-.scale-section .pitch-note{margin-top:7px;color:#546d6b}
+.scale-section p+p{margin-top:7px}
+.scale-section .pitch-note{color:#546d6b}
 .help{margin-top:18px;color:#74807c;font-size:10px;line-height:1.6}
 .help summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer;list-style:none;font-size:11px;color:#687671}
 .help summary::-webkit-details-marker{display:none}
@@ -101,6 +101,83 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
 @media(max-width:850px){.app{height:auto;min-height:100vh;min-height:100dvh}.topbar{height:78px;flex-basis:78px;padding:0 22px}.workspace{display:flex;flex-direction:column;flex:1}.viewport{height:59vh;min-height:420px;max-height:680px;flex:none}.control-rail{width:100%;padding:26px 28px;overflow:visible;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:34px;align-items:start}.measurement{grid-column:1}.adjustment{grid-column:2;grid-row:1 / span 2;padding-top:0}.scale-section{grid-column:1;padding-top:23px}.help{grid-column:2;margin-top:13px}.model-note{grid-column:1 / -1;margin-top:20px;max-width:none}.decomposition{padding-bottom:20px}.scene-caption{left:24px;top:23px}.view-tools{left:22px;bottom:24px}.camera-hint{left:24px;bottom:72px}.source-note{font-size:10px}.eyebrow{font-size:8px;letter-spacing:1.6px}h1{font-size:24px}}
 @media(max-width:520px){.topbar{padding:0 20px;gap:10px}.brand{gap:11px}.brand-mark{height:35px;width:5px}.source-note{max-width:102px;line-height:1.65;text-align:right;font-size:9px}.source-note span{display:block;margin-left:0}.viewport{height:57vh;min-height:420px}.control-rail{display:block;padding:28px 26px}.measurement{margin-bottom:0}.adjustment{padding-top:24px}.scale-section{padding-top:24px}#reading{font-size:61px}.decomposition{gap:29px}.help{margin-top:18px}.model-note{margin-top:17px;max-width:280px}.view-tools{gap:5px;left:18px;bottom:20px}.view-button{padding:0 10px}.camera-hint{left:21px;bottom:67px;max-width:calc(100% - 42px);font-size:9px}.hint-dot{padding:0 3px}.scene-caption{left:21px;top:21px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+
+/* Micrometer layout. */
+.scale-section .match-reading{margin-bottom:8px;color:#3e6f67;font-size:11px;font-weight:550;font-variant-numeric:tabular-nums}
+.scale-section .rule-note{color:#546d6b}
+.presets button{padding:4px 4px}
+@media(max-width:850px){
+  .mode-switch{grid-column:1 / -1;grid-row:1}
+  .measurement{grid-column:1;grid-row:2}.adjustment{grid-column:2;grid-row:2}.scale-section{grid-column:1;grid-row:3}.help{grid-column:2;grid-row:3}.model-note{grid-column:1 / -1;grid-row:4}
+  .app.is-practice .control-rail{grid-template-rows:auto auto 1fr auto}.app.is-practice .practice{grid-column:1;grid-row:2 / span 2}.app.is-practice .scale-section{grid-column:2;grid-row:2;padding-top:0}.app.is-practice .help{grid-column:2;grid-row:3}.app.is-practice .model-note{grid-row:4}
+}
+@media(max-width:520px){.app.is-practice .scale-section{padding-top:24px}}
+
+/* Practice mode, mode switch and navigation hints (shared by the caliper and micrometer pages). */
+.mode-switch{display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:3px;margin:0 0 24px;border-radius:7px;background:#e3e5dd}
+.mode-switch button{height:34px;border:0;border-radius:5px;background:transparent;color:#61706d;font-size:12px;font-weight:600;letter-spacing:.1px}
+.mode-switch button:hover{color:#26434a}
+.mode-switch button[aria-pressed=true]{background:#fbfbf7;color:#22393f;box-shadow:0 1px 2px rgba(18,29,40,.14)}
+.app.is-practice .explore-only,.app:not(.is-practice) .practice-only{display:none!important}
+.primary-button .icon{display:inline-block;min-width:10px;font-size:10px;margin-right:7px}
+.practice{padding:0 0 22px;border-bottom:1px solid var(--line)}
+.task-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.task-score{font-size:10px;color:#7d8784;font-variant-numeric:tabular-nums;white-space:nowrap}
+.task-text{margin:9px 0 15px;font-size:12px;line-height:1.55;color:#3d4d55}
+.answer-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;margin:0}
+.answer-input{position:relative;display:flex;align-items:center;height:54px;border:1px solid #cdd5cb;border-radius:5px;background:#fbfbf7;transition:border-color .16s ease,box-shadow .16s ease}
+.answer-input:focus-within{border-color:#6c8f89;box-shadow:0 0 0 3px rgba(108,143,137,.2)}
+.answer-input input{width:100%;min-width:0;height:100%;border:0;background:transparent;padding:0 40px 0 14px;font-size:28px;font-weight:450;letter-spacing:-.8px;color:var(--ink);font-variant-numeric:tabular-nums;outline:none}
+.answer-input input::placeholder{color:#c5cac2}
+.answer-input>span{position:absolute;right:13px;font-size:12px;color:#8b8f8b;pointer-events:none}
+.answer-row .primary-button{flex:none;min-height:54px;padding:0 15px}
+.answer-hint{margin:8px 0 0;font-size:9px;line-height:1.5;color:#8a918c}
+.feedback{margin-top:15px;padding:12px 14px 13px;border:1px solid #d7dcd3;border-left-width:3px;border-radius:4px;background:#fafaf6}
+.feedback[data-kind=ok]{border-color:#a4c8ba;border-left-color:#3c8a79;background:#e9f2ec}
+.feedback[data-kind=bad]{border-color:#e4c7ab;border-left-color:#c4793d;background:#fbf1e7}
+.feedback[data-kind=reveal]{border-color:#dcd2a8;border-left-color:#b89a2c;background:#f8f4e2}
+.feedback[data-kind=info]{border-left-color:#7e9aa0}
+.feedback-title{margin:0;font-size:12px;font-weight:650;line-height:1.4;color:#2c3c42}
+.feedback-text{margin:6px 0 0;font-size:11px;line-height:1.6;color:#4c5a5c}
+.feedback-text b{font-weight:650;color:#2f4146}
+.task-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin-top:13px}
+.task-actions .secondary-button{margin-left:auto}
+.secondary-button{min-height:36px;padding:0 14px;border:1px solid #b5c4b9;border-radius:4px;background:#e5eae0;color:#2f5651;font-size:11px;font-weight:600;white-space:nowrap}
+.secondary-button:hover{background:#d9e3d5;border-color:#91ab9a}
+.secondary-button.is-ready{background:#304e57;border-color:#304e57;color:#f4f5ed}
+.secondary-button.is-ready:hover{background:#3f6570}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px;padding-top:17px;border-top:1px solid var(--line)}
+.stats>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.stat-value{font-size:17px;color:#34464d;font-variant-numeric:tabular-nums}
+.stat-label{font-size:9px;color:#8a918c;line-height:1.3}
+.error-tally{margin-top:16px}
+.error-tally h3{margin:0 0 7px;font-size:9px;font-weight:650;letter-spacing:1.5px;color:var(--muted)}
+.error-tally ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.error-tally li{display:flex;justify-content:space-between;gap:10px;font-size:10px;line-height:1.35;color:#56645f}
+.error-tally li span:last-child{font-variant-numeric:tabular-nums;color:#9a5f2e;font-weight:650}
+.log{margin-top:16px;font-size:10px;color:#5f6d69}
+.log summary{display:flex;align-items:center;gap:7px;cursor:pointer;list-style:none;font-size:11px;color:#687671}
+.log summary::-webkit-details-marker{display:none}
+.log summary .plus{margin-left:auto;font-size:17px;font-weight:300;color:#9aa69b;transition:transform .2s}
+.log[open] summary .plus{transform:rotate(45deg)}
+.log-count{font-size:9px;padding:1px 6px;border-radius:9px;background:#e3e6de;color:#5f6d69;font-variant-numeric:tabular-nums}
+.log-list{margin:9px 0 0;padding:0;list-style:none;max-height:230px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#c5cbc3 transparent}
+.log-list li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:2px 8px;padding:6px 0;border-bottom:1px solid #e4e6de;font-variant-numeric:tabular-nums}
+.log-list .n{color:#9aa19a}
+.log-list .v{color:#34464d}
+.log-list .t{color:#9aa19a;text-align:right}
+.log-list .r{grid-column:2 / -1;color:#7a8580}
+.log-list .r.ok{color:#3c7771}
+.log-list .r.bad{color:#9a5f2e}
+.log-list .empty{display:block;color:#9aa19a;border:0}
+.log-actions{display:flex;gap:16px;margin-top:8px}
+.log-actions .text-button{font-size:10px}
+.reveal-note{display:none;margin:12px 0 10px;padding:10px 12px;border:1px dashed #cfd5cb;border-radius:4px;color:#8a918c;font-size:10px;line-height:1.5}
+.app.is-practice .scale-section.is-concealed .reveal-note{display:block}
+.app.is-practice .scale-section.is-concealed svg,.app.is-practice .scale-section.is-concealed .match-reading{display:none!important}
+.hint-touch{display:none}
+@media(hover:none) and (pointer:coarse){.hint-mouse{display:none}.hint-touch{display:inline}}
+@media(max-width:520px){.answer-input input{font-size:26px}}
 
 </style>
 </head>
@@ -123,12 +200,17 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
           <button id="labelsToggle" class="view-button" type="button" aria-pressed="false" title="Показати назви деталей"><span aria-hidden="true">Aa</span><span>Деталі</span></button>
           <button id="fullscreen" class="view-button icon-only" type="button" aria-label="На весь екран" title="На весь екран"><span aria-hidden="true">⛶</span></button>
         </div>
-        <p class="camera-hint"><span aria-hidden="true">↔</span> Перетягніть, щоб обертати <span class="hint-dot">·</span> Прокрутіть, щоб наблизити</p>
+        <p class="camera-hint"><span aria-hidden="true">↔</span><span class="hint-mouse">Перетягніть, щоб обертати <span class="hint-dot">·</span> Колесо — наблизити до курсора <span class="hint-dot">·</span> Права кнопка — зсув</span><span class="hint-touch">Один палець — обертати <span class="hint-dot">·</span> Два — масштаб і зсув</span></p>
         <div id="error" class="error-message" role="alert" hidden></div>
       </section>
 
       <aside class="control-rail" aria-label="Керування мікрометром">
-        <section class="measurement" aria-labelledby="reading-title">
+        <div class="mode-switch" role="group" aria-label="Режим роботи">
+          <button id="modeExplore" type="button" aria-pressed="true">Дослідження</button>
+          <button id="modePractice" type="button" aria-pressed="false">Практика</button>
+        </div>
+
+        <section class="measurement explore-only" aria-labelledby="reading-title">
           <p id="reading-title" class="section-label">ПОТОЧНИЙ ВІДЛІК</p>
           <div class="reading-line"><output id="reading" for="opening exactValue">10,25</output><span>мм</span></div>
           <div class="decomposition" aria-label="Складові показу">
@@ -138,7 +220,7 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
           </div>
         </section>
 
-        <section class="adjustment" aria-labelledby="opening-label">
+        <section class="adjustment explore-only" aria-labelledby="opening-label">
           <div class="label-row"><label id="opening-label" for="opening">Розкриття</label><span>0–25 мм</span></div>
           <input id="opening" type="range" min="0" max="2500" step="1" value="1025" aria-label="Розкриття мікрометра з кроком 0,01 мм">
           <div class="fine-adjustment">
@@ -147,28 +229,60 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
             <button id="plus" class="step-button" type="button" aria-label="Збільшити на 0,01 мм">+0,01</button>
           </div>
           <div class="presets" role="group" aria-label="Приклади показів">
-            <button type="button" data-value="1000">10,00 мм</button>
             <button type="button" data-value="1025">10,25 мм</button>
+            <button type="button" data-value="1048" title="Штрих 10,5 ще під барабаном">10,48 мм</button>
             <button type="button" data-value="1050">10,50 мм</button>
+            <button type="button" data-value="1052" title="Штрих 10,5 щойно відкрився">10,52 мм</button>
           </div>
-          <div class="playback"><button id="play" class="primary-button" type="button"><span aria-hidden="true">▶</span> Відтворити</button><button id="reset" class="text-button" type="button">Скинути</button></div>
+          <div class="playback"><button id="play" class="primary-button" type="button" aria-pressed="false"><span class="icon" aria-hidden="true">▶</span><span class="label">Відтворити</span></button><button id="reset" class="text-button" type="button">Скинути</button></div>
           <div class="speed-row"><label for="speed">Швидкість обертання</label><select id="speed"><option value="0.25">0,25×</option><option value="1" selected>1×</option><option value="2">2×</option></select></div>
         </section>
 
-        <section class="scale-section" aria-labelledby="scale-title">
+        <section id="practicePanel" class="practice practice-only" aria-labelledby="practice-title">
+          <div class="task-head"><p id="practice-title" class="section-label">ЗАВДАННЯ <span id="taskNumber">1</span></p><span id="taskScore" class="task-score"></span></div>
+          <p id="taskText" class="task-text"></p>
+          <form id="answerForm" class="answer-row" novalidate>
+            <div class="answer-input"><label class="sr-only" for="answer">Ваш відлік у міліметрах</label><input id="answer" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="0,00" aria-describedby="answerHint"><span aria-hidden="true">мм</span></div>
+            <button id="check" class="primary-button" type="submit">Перевірити</button>
+          </form>
+          <p id="answerHint" class="answer-hint">Відлік із точністю до 0,01 мм. Можна писати з комою або з крапкою.</p>
+          <div id="feedback" class="feedback" hidden><p id="feedbackTitle" class="feedback-title"></p><p id="feedbackText" class="feedback-text"></p></div>
+          <div class="task-actions">
+            <button id="hint" class="text-button" type="button">Підказка</button>
+            <button id="reveal" class="text-button" type="button">Показати відповідь</button>
+            <button id="nextTask" class="secondary-button" type="button">Наступне завдання</button>
+          </div>
+          <div class="stats" aria-label="Статистика цієї сесії">
+            <div><span id="statFirst" class="stat-value">0 з 0</span><span class="stat-label">правильно з першої спроби</span></div>
+            <div><span id="statStreak" class="stat-value">0</span><span class="stat-label">поточна серія</span></div>
+            <div><span id="statBest" class="stat-value">0</span><span class="stat-label">найкраща серія</span></div>
+          </div>
+          <div id="errorTally" class="error-tally" hidden></div>
+          <details class="log">
+            <summary>Журнал відповідей <span id="logCount" class="log-count">0</span><span class="plus" aria-hidden="true">+</span></summary>
+            <ol id="logList" class="log-list"></ol>
+            <div class="log-actions"><button id="exportLog" class="text-button" type="button">Завантажити CSV</button><button id="clearLog" class="text-button" type="button">Очистити журнал</button></div>
+          </details>
+        </section>
+
+        <section id="scaleSection" class="scale-section" aria-labelledby="scale-title">
           <div class="label-row"><h2 id="scale-title">Як читати шкалу</h2><span class="mini-accent" aria-hidden="true"></span></div>
           <svg id="scaleDiagram" viewBox="0 0 320 130" role="img" aria-label="Розгорнута схема шкал стебла та барабана"></svg>
-          <p>На стеблі — цілі та половини міліметра. На барабані — 50 поділок по 0,01 мм.</p>
+          <p class="reveal-note">Схема розбору з’явиться після правильної відповіді або після кнопки «Показати відповідь».</p>
+          <p id="matchReading" class="match-reading">Стебло 10,00 мм + барабан 0,25 мм</p>
+          <p>На стеблі над базовою лінією — цілі міліметри, під нею — половини. На барабані — 50 поділок по 0,01 мм; відлік — поділка, що лежить на базовій лінії.</p>
           <p class="pitch-note">Один оберт барабана = 0,50 мм.</p>
+          <p class="rule-note">Якщо штрих половини міліметра ледь видно, дивіться на барабан: показ 45–49 означає, що половину ще не пройдено, а 0–5 — що її щойно пройдено.</p>
         </section>
 
         <details class="help">
           <summary>Керування та клавіші <span aria-hidden="true">+</span></summary>
-          <p>Перетягуйте фон, щоб обертати камеру, або сам барабан, щоб змінювати відлік. Колесо миші чи жест двома пальцями змінюють масштаб. Кнопка «Шкала» наближає поділки.</p>
+          <p>Перетягуйте фон, щоб обертати камеру, або барабан — угору чи вниз, — щоб його обертати. Колесо миші наближає до точки під курсором, права кнопка миші зсуває вигляд. На сенсорному екрані — один палець обертає, два змінюють масштаб і зсувають. Кнопка «Шкала» наближає поділки, подвійний клік перемикає вигляд.</p>
           <p>Пробіл — відтворення / пауза; <kbd>R</kbd> — скинути. У 3D-вікні <kbd>←</kbd> / <kbd>→</kbd> змінюють відлік на 0,01 мм, разом із <kbd>Shift</kbd> — на 0,50 мм.</p>
-          <p>Виберіть повзунок і натискайте <kbd>←</kbd> або <kbd>→</kbd>, щоб змінити відлік на 0,01 мм. <kbd>Home</kbd> — 0 мм, <kbd>End</kbd> — 25 мм.</p>
+          <p>У режимі практики барабан заблокований: у 3D-вікні стрілки зсувають вигляд, <kbd>+</kbd> / <kbd>−</kbd> змінюють масштаб, <kbd>Enter</kbd> у полі відповіді перевіряє її або відкриває наступне завдання.</p>
+          <p>На повзунку також працюють <kbd>←</kbd> / <kbd>→</kbd>; <kbd>Home</kbd> — 0 мм, <kbd>End</kbd> — 25 мм.</p>
         </details>
-        <p class="model-note">Відтворено геометрію деталей наближено.</p>
+        <p class="model-note">Геометрію деталей відтворено наближено. Вимірювальні поверхні п’ятки й шпинделя мають однаковий діаметр.</p>
       </aside>
     </main>
   </div>
@@ -211,42 +325,48 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   <script>
 (() => {
  'use strict';
- const $ = id => document.getElementById(id);
- const fmt = n => n.toLocaleString('uk-UA', {minimumFractionDigits:2,maximumFractionDigits:2});
- const canvas = $('scene'), viewport = $('viewport');
+ const $=id=>document.getElementById(id);
+ const fmt=(n,d=2)=>n.toLocaleString('uk-UA',{minimumFractionDigits:d,maximumFractionDigits:d});
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ const pick=a=>a[Math.floor(Math.random()*a.length)];
+ const ANVIL=-34;          // anvil measuring face, X. The spindle face sits at ANVIL + reading.
+ const canvas=$('scene'),viewport=$('viewport'),app=document.querySelector('.app');
  let renderer;
- try { renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true}); }
- catch(e) { $('error').hidden=false; $('error').textContent='Для 3D потрібен WebGL. Відкрийте файл у сучасному Chrome, Edge або Firefox із увімкненим апаратним прискоренням.'; return; }
+ try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});}
+ catch(e){$('error').hidden=false;$('error').textContent='Для 3D потрібен WebGL. Відкрийте файл у сучасному Chrome, Edge або Firefox із увімкненим апаратним прискоренням.';return;}
  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
- renderer.shadowMap.enabled = true;
- renderer.shadowMap.type = THREE.PCFSoftShadowMap;
- renderer.outputColorSpace = THREE.SRGBColorSpace;
- renderer.toneMapping = THREE.ACESFilmicToneMapping;
- renderer.toneMappingExposure = 1.35;
- const scene = new THREE.Scene();
- scene.fog = new THREE.Fog(0x121d28,220,500);
- const camera = new THREE.PerspectiveCamera(35,1,.1,700);
+ renderer.shadowMap.enabled=true;
+ renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+ renderer.outputColorSpace=THREE.SRGBColorSpace;
+ renderer.toneMapping=THREE.ACESFilmicToneMapping;
+ renderer.toneMappingExposure=1.35;
+ const scene=new THREE.Scene();
+ scene.fog=new THREE.Fog(0x121d28,220,500);
+ const camera=new THREE.PerspectiveCamera(35,1,1,700);
+ const CAM={min:10,max:440,maxElevation:1.3,lo:new THREE.Vector3(-90,-70,-60),hi:new THREE.Vector3(100,45,60)};
  scene.add(new THREE.HemisphereLight(0xdceaff,0x444034,2.4));
- const key = new THREE.DirectionalLight(0xfff4dd,3.5); key.position.set(-25,80,80);
- key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.camera.left=-110;key.shadow.camera.right=110;
+ const key=new THREE.DirectionalLight(0xfff4dd,3.5);key.position.set(-25,80,80);
+ key.castShadow=true;key.shadow.mapSize.set(2048,2048);key.shadow.camera.left=-110;key.shadow.camera.right=110;
  key.shadow.camera.top=85;key.shadow.camera.bottom=-85;key.shadow.normalBias=.12;key.shadow.bias=-.00025;scene.add(key);
  const fill=new THREE.DirectionalLight(0xaac8ef,2);fill.position.set(40,10,-60);scene.add(fill);
  const rim=new THREE.DirectionalLight(0xffffff,1);rim.position.set(-100,-15,25);scene.add(rim);
  const steel=new THREE.MeshStandardMaterial({color:0xabb8c3,metalness:.65,roughness:.3});
+ const carbide=new THREE.MeshStandardMaterial({color:0x7d858b,metalness:.55,roughness:.22});
  const dark=new THREE.MeshStandardMaterial({color:0x3e4b57,metalness:.4,roughness:.43});
  const paint=new THREE.MeshStandardMaterial({color:0x465562,metalness:.35,roughness:.48});
  const grip=new THREE.MeshStandardMaterial({color:0x607381,metalness:.5,roughness:.5});
  const black=new THREE.MeshStandardMaterial({color:0x18232b,metalness:.35,roughness:.4});
  const model=new THREE.Group();scene.add(model);
- function mesh(geo,mat,parent=model) {const m=new THREE.Mesh(geo,mat);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
- function cylinder(x0,x1,r,mat,parent=model,r2=r) {
+ function mesh(geo,mat,parent=model){const m=new THREE.Mesh(geo,mat);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
+ function cylinder(x0,x1,r,mat,parent=model,r2=r){
    const m=mesh(new THREE.CylinderGeometry(r2,r,x1-x0,64),mat,parent);m.rotation.z=-Math.PI/2;m.position.x=(x0+x1)/2;return m;
  }
- function box(x,y,z,w,h,d,mat,parent=model){const m=mesh(new THREE.BoxGeometry(w,h,d),mat,parent);m.position.set(x,y,z);return m;}
- function line(points,color=0xe6cc5c,parent=model) {const g=new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(...p)));const l=new THREE.Line(g,new THREE.LineBasicMaterial({color}));parent.add(l);return l;}
+ function line(points,color=0xe6cc5c,parent=model){const g=new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(...p)));const l=new THREE.Line(g,new THREE.LineBasicMaterial({color}));parent.add(l);return l;}
+ // Repeated small parts (knurl ridges, lock teeth) share one draw call each.
+ function instances(geo,mat,items,parent=model){const m=new THREE.InstancedMesh(geo,mat,items.length),o=new THREE.Object3D();items.forEach(([p,r],i)=>{o.position.set(...p);o.rotation.set(...(r||[0,0,0]));o.updateMatrix();m.setMatrixAt(i,o.matrix);});m.castShadow=m.receiveShadow=true;parent.add(m);return m;}
  function makeTexture(width,height,draw){const c=document.createElement('canvas');c.width=width;c.height=height;draw(c.getContext('2d'),width,height);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=renderer.capabilities.getMaxAnisotropy();return t;}
  // Cylinder axis is X. At phi=0 the visible datum faces +Z.
- function surface(x0,x1,r0,r1,material,parent=model,segments=160) {
+ function surface(x0,x1,r0,r1,material,parent=model,segments=160){
    const p=[],n=[],uv=[],indices=[];
    for(let i=0;i<=segments;i++){
      const a=-Math.PI+i/segments*Math.PI*2,s=Math.sin(a),c=Math.cos(a);
@@ -260,14 +380,16 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
    return mesh(g,material,parent);
  }
  function texturedMat(t){return new THREE.MeshStandardMaterial({map:t,metalness:.12,roughness:.72,side:THREE.DoubleSide});}
- // Forged C-frame, visually reconstructed from the reference video.
+ // Forged C-frame. The throat now starts at x = -37, so the anvil protrudes 3 mm from the frame.
  const shape=new THREE.Shape();
- shape.moveTo(-46,1);shape.lineTo(-33,1);shape.lineTo(-33,-10);
- shape.bezierCurveTo(-33,-25,-6,-25,-6,-10);shape.lineTo(-6,1);shape.lineTo(8,1);
+ shape.moveTo(-46,1);shape.lineTo(-37,1);shape.lineTo(-37,-10);
+ shape.bezierCurveTo(-37,-25,-6,-25,-6,-10);shape.lineTo(-6,1);shape.lineTo(8,1);
  shape.lineTo(8,-12);shape.bezierCurveTo(8,-44,-46,-44,-46,-12);shape.closePath();
  const frame=mesh(new THREE.ExtrudeGeometry(shape,{depth:8,bevelEnabled:true,bevelSegments:3,steps:1,bevelSize:.8,bevelThickness:.7,curveSegments:48}),paint);
  frame.position.z=-4;
- cylinder(-45,-34.4,5.4,steel);cylinder(-34.4,-34,4.6,black);
+ // Anvil: boss in the frame, then a Ø5,8 mm anvil with a carbide face — the same diameter as the spindle.
+ cylinder(-45,-37,5.4,steel);cylinder(-37,ANVIL-.5,2.9,steel);cylinder(ANVIL-.5,ANVIL,2.9,carbide);
+ cylinder(-6,-2.3,4.4,steel); // spindle bush in the right arm
  cylinder(-2,8,7.7,dark);cylinder(-2.3,-1.7,7.9,steel);
  cylinder(6,8.2,7.95,grip);
  // Fixed sleeve carries the millimetre and half-millimetre graduations.
@@ -284,7 +406,9 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
    }
  });
  surface(5,39,6,6,texturedMat(sleeveTexture));
- const spindle=cylinder(-34,8,2.9,steel);const spindleFace=cylinder(-34.04,-33.94,2.94,steel);
+ // Spindle: steel shank plus a carbide face of the same diameter as the anvil.
+ const SPINDLE_LEN=8-(ANVIL+.5);
+ const spindle=cylinder(ANVIL+.5,8,2.9,steel);const spindleFace=cylinder(ANVIL,ANVIL+.5,2.9,carbide);
  const thimble=new THREE.Group();model.add(thimble);
  const thimbleTexture=makeTexture(1024,4096,(ctx,w,h)=>{
    ctx.fillStyle='#475662';ctx.fillRect(0,0,w,h);
@@ -307,49 +431,260 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
  cylinder(10,30,7.65,dark,thimble);cylinder(29.7,30.2,7.9,steel,thimble);
  function knurl(x0,x1,r,parent){
    cylinder(x0,x1,r,grip,parent);
-   for(let i=0;i<88;i++){
-     const a=i/88*Math.PI*2;
-     const ridge=box((x0+x1)/2,Math.sin(a)*(r+.06),Math.cos(a)*(r+.06),x1-x0,.22,.28,grip,parent);
-     ridge.rotation.x=-a;
-   }
+   instances(new THREE.BoxGeometry(x1-x0,.22,.28),grip,Array.from({length:88},(_,i)=>{const a=i/88*Math.PI*2;return[[(x0+x1)/2,Math.sin(a)*(r+.06),Math.cos(a)*(r+.06)],[-a,0,0]];}),parent);
    cylinder(x0-.16,x0+.16,r+.08,dark,parent);cylinder(x1-.16,x1+.16,r+.08,dark,parent);
  }
  knurl(11.5,17.5,8.2,thimble);knurl(28,34,8.2,thimble);
  cylinder(34,37,4.65,steel,thimble);knurl(37,42,5.7,thimble);cylinder(42,42.5,5.35,dark,thimble);
  // Spindle lock on top of the fixed hub.
  const lock=mesh(new THREE.CylinderGeometry(2.7,2.7,1.8,48),black);lock.position.set(1.5,8.4,0);
- for(let i=0;i<24;i++){const a=i/24*Math.PI*2;const tooth=box(1.5+Math.sin(a)*2.65,8.4,Math.cos(a)*2.65,.35,1.8,.35,black);}
+ instances(new THREE.BoxGeometry(.35,1.8,.35),black,Array.from({length:24},(_,i)=>{const a=i/24*Math.PI*2;return[[1.5+Math.sin(a)*2.65,8.4,Math.cos(a)*2.65]];}));
  const badgeTex=makeTexture(512,256,(ctx,w,h)=>{ctx.fillStyle='#33424e';ctx.fillRect(0,0,w,h);ctx.textAlign='center';ctx.fillStyle='#ebd770';ctx.font='600 53px Arial';ctx.fillText('0–25 mm',w/2,109);ctx.font='37px Arial';ctx.fillText('0.01 mm',w/2,172);});
- const badge=mesh(new THREE.PlaneGeometry(16,8),new THREE.MeshStandardMaterial({map:badgeTex,roughness:.6}));badge.position.set(-19,-28,4.85);
+ const badge=mesh(new THREE.PlaneGeometry(16,8),new THREE.MeshStandardMaterial({map:badgeTex,roughness:.6}));badge.position.set(-21,-28,4.85);
+ // Practice specimens, clamped between the anvil and the spindle.
+ const specimen=new THREE.Group();model.add(specimen);
+ const ball=mesh(new THREE.SphereGeometry(.5,72,40),new THREE.MeshStandardMaterial({color:0xc4ced6,metalness:.6,roughness:.22}),specimen);
+ const rod=mesh(new THREE.CylinderGeometry(.5,.5,1,72),new THREE.MeshStandardMaterial({color:0xb69a5c,metalness:.72,roughness:.34}),specimen);rod.rotation.x=Math.PI/2;
+ const wire=mesh(new THREE.CylinderGeometry(.5,.5,1,48),new THREE.MeshStandardMaterial({color:0xb87350,metalness:.75,roughness:.3}),specimen);wire.rotation.x=Math.PI/2;
+ const plate=mesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:0xa9b5bd,metalness:.7,roughness:.3}),specimen);
+ function placeSpecimen(type,mm){
+   ball.visible=type==='ball';rod.visible=type==='rod';wire.visible=type==='wire';plate.visible=type==='plate';
+   const x=ANVIL+mm/2;
+   if(type==='ball'){ball.scale.setScalar(mm);ball.position.set(x,0,0);}
+   else if(type==='rod'){rod.scale.set(mm,16,mm);rod.position.set(x,0,0);}
+   else if(type==='wire'){wire.scale.set(mm,26,mm);wire.position.set(x,0,0);}
+   else if(type==='plate'){plate.scale.set(mm,11,11);plate.position.set(x,0,0);}
+ }
+ placeSpecimen(null,0);
  const floor=mesh(new THREE.PlaneGeometry(900,900),new THREE.ShadowMaterial({opacity:.22}),scene);floor.rotation.x=-Math.PI/2;floor.position.y=-39;floor.castShadow=false;
  const grid=new THREE.GridHelper(360,36,0x314451,0x243441);grid.position.y=-39.1;grid.material.transparent=true;grid.material.opacity=.3;scene.add(grid);
  // Gap indicator and optional component labels live in the same 3D coordinate system.
  const dim=new THREE.Group();model.add(dim);
- const dimension=line([[-34,11,0],[-23.75,11,0]],0x7fc6c0,dim);
- const leftGuide=line([[-34,4,0],[-34,13,0]],0x7fc6c0,dim);
+ const dimension=line([[ANVIL,11,0],[-23.75,11,0]],0x7fc6c0,dim);
+ line([[ANVIL,4,0],[ANVIL,13,0]],0x7fc6c0,dim);
  const rightGuide=line([[-23.75,4,0],[-23.75,13,0]],0x7fc6c0,dim);
- const leftArrow=line([[-32.8,11.7,0],[-34,11,0],[-32.8,10.3,0]],0x7fc6c0,dim);
+ const leftArrow=line([[ANVIL+1.2,11.7,0],[ANVIL,11,0],[ANVIL+1.2,10.3,0]],0x7fc6c0,dim);
  const rightArrow=line([[-24.95,11.7,0],[-23.75,11,0],[-24.95,10.3,0]],0x7fc6c0,dim);
  const gapLabel=document.createElement('div');gapLabel.className='gap-label';viewport.appendChild(gapLabel);
  const labelDefs=[['Скоба',[-30,-29,5]],['П’ятка',[-42,5.5,0]],['Шпиндель',[-16,3,0]],['Стебло',[12,7,0]],['Барабан',[35,8,0]],['Тріскачка',[61,6,0]]];
  const labels=labelDefs.map(([text,p])=>{const el=document.createElement('div');el.className='scene-part-label';el.textContent=text;el.hidden=true;viewport.appendChild(el);return {el,p:new THREE.Vector3(...p)};});
- let state=1025,play=false,showLabels=false,demoInitialized=false,elapsed=0,mode='home';
- let target=new THREE.Vector3(12,-10,0),azimuth=.13,elevation=.2,distance=188;
- let drag=null,pointers=new Map(),pinch=null;
- const raycaster=new THREE.Raycaster(),mouse=new THREE.Vector2();
- function updateCamera(){camera.position.set(target.x+distance*Math.sin(azimuth)*Math.cos(elevation),target.y+distance*Math.sin(elevation),target.z+distance*Math.cos(azimuth)*Math.cos(elevation));camera.lookAt(target);}
- function view(type){
-   mode=type;const focus=type==='scale';
-   const end={target:new THREE.Vector3(focus?scaleFocus():12,focus?0:-10,0),azimuth:focus?-.025:.13,elevation:focus?.055:.2,distance:focus?Math.max(50,46/camera.aspect):fitDistance()};
-   target.copy(end.target);azimuth=end.azimuth;elevation=end.elevation;distance=end.distance;
-   $('homeView').setAttribute('aria-pressed',String(!focus));$('scaleView').setAttribute('aria-pressed',String(focus));
-   draw();
+
+ // ---------------------------------------------------------------------------
+ // Shared core (identical in the caliper and micrometer pages).
+ // Rendering on demand, camera rig with zoom-to-cursor and pan, pointer
+ // controls, and the practice-mode session (tasks, feedback, stats, CSV log).
+ // ---------------------------------------------------------------------------
+ let needsRender=true,frameId=0,lastFrame=0;
+ const tickers=[];
+ function invalidate(){needsRender=true;schedule();}
+ function schedule(){if(!frameId)frameId=requestAnimationFrame(onFrame);}
+ function onFrame(now){
+   frameId=0;
+   const dt=lastFrame?Math.min(.08,(now-lastFrame)/1000):0;
+   let busy=false;for(const t of tickers)if(t(dt))busy=true;
+   lastFrame=busy?now:0;if(busy)schedule();
+   if(needsRender){needsRender=false;render();}
  }
+ const cam={target:new THREE.Vector3(),azimuth:0,elevation:0,distance:100};
+ let camCustom=false; // true once the user orbits, zooms or pans away from a preset view
+ const raycaster=new THREE.Raycaster(),ndc=new THREE.Vector2();
+ function placeCamera(){const c=cam;camera.position.set(c.target.x+c.distance*Math.sin(c.azimuth)*Math.cos(c.elevation),c.target.y+c.distance*Math.sin(c.elevation),c.target.z+c.distance*Math.cos(c.azimuth)*Math.cos(c.elevation));camera.lookAt(c.target);camera.updateMatrixWorld();}
+ function shown(o){for(;o;o=o.parent)if(!o.visible)return false;return true;}
+ function rayAt(x,y){const r=canvas.getBoundingClientRect();ndc.set((x-r.left)/r.width*2-1,-(y-r.top)/r.height*2+1);placeCamera();raycaster.setFromCamera(ndc,camera);return raycaster;}
+ function hitAt(x,y,root){return rayAt(x,y).intersectObject(root,true).find(h=>h.object.isMesh&&shown(h.object))||null;}
+ // World point under the cursor: the model surface if there is one, otherwise the focus plane.
+ function anchorAt(x,y){
+   const hit=hitAt(x,y,model);if(hit)return hit.point.clone();
+   const n=new THREE.Vector3().subVectors(camera.position,cam.target).normalize(),p=new THREE.Vector3();
+   return raycaster.ray.intersectPlane(new THREE.Plane().setFromNormalAndCoplanarPoint(n,cam.target),p)||cam.target.clone();
+ }
+ // Scaling the whole rig about the anchor keeps that point fixed on screen.
+ function zoomBy(f,x,y){
+   const d0=cam.distance,d1=clamp(d0*f,CAM.min,CAM.max);if(Math.abs(d1-d0)<1e-9)return;
+   if(x!==undefined){const p=anchorAt(x,y);cam.target.sub(p).multiplyScalar(d1/d0).add(p);}
+   cam.distance=d1;cam.target.clamp(CAM.lo,CAM.hi);camCustom=true;invalidate();
+ }
+ function panBy(dx,dy){
+   placeCamera();
+   const per=2*cam.distance*Math.tan(THREE.MathUtils.degToRad(camera.fov/2))/Math.max(1,viewport.clientHeight);
+   const right=new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld,0),up=new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld,1);
+   cam.target.addScaledVector(right,-dx*per).addScaledVector(up,dy*per).clamp(CAM.lo,CAM.hi);camCustom=true;invalidate();
+ }
+ function orbitTo(az,el){cam.azimuth=az;cam.elevation=clamp(el,-CAM.maxElevation,CAM.maxElevation);camCustom=true;invalidate();}
+ function installControls({grab,dblclick}){
+   const pointers=new Map();let drag=null,pinch=null;
+   const endGrab=()=>{if(drag&&drag.type==='grab'&&drag.h.end)drag.h.end();};
+   canvas.addEventListener('contextmenu',e=>e.preventDefault());
+   canvas.addEventListener('pointerdown',e=>{
+     if(document.activeElement!==canvas)canvas.focus({preventScroll:true});
+     try{canvas.setPointerCapture(e.pointerId);}catch(_){}
+     pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+     if(pointers.size===2){const[a,b]=[...pointers.values()];pinch={span:Math.max(10,Math.hypot(a.x-b.x,a.y-b.y)),x:(a.x+b.x)/2,y:(a.y+b.y)/2};endGrab();drag=null;return;}
+     if(pointers.size>2)return;
+     if(e.pointerType==='mouse'&&(e.button===1||e.button===2)){e.preventDefault();drag={type:'pan',x:e.clientX,y:e.clientY};return;}
+     const h=grab?grab(e):null;
+     drag=h?{type:'grab',x:e.clientX,y:e.clientY,h}:{type:'orbit',x:e.clientX,y:e.clientY,az:cam.azimuth,el:cam.elevation};
+   });
+   canvas.addEventListener('pointermove',e=>{
+     if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+     if(pinch&&pointers.size===2){
+       const[a,b]=[...pointers.values()],span=Math.max(10,Math.hypot(a.x-b.x,a.y-b.y)),x=(a.x+b.x)/2,y=(a.y+b.y)/2;
+       panBy(x-pinch.x,y-pinch.y);zoomBy(pinch.span/span,x,y);Object.assign(pinch,{span,x,y});return;
+     }
+     if(!drag)return;
+     const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+     if(drag.type==='pan'){panBy(dx,dy);drag.x=e.clientX;drag.y=e.clientY;}
+     else if(drag.type==='grab')drag.h.move(dx,dy,e);
+     else orbitTo(drag.az-dx*.006,drag.el+dy*.006);
+   });
+   function release(e){
+     if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);
+     if(pinch&&pointers.size===1){const[p]=[...pointers.values()];drag={type:'orbit',x:p.x,y:p.y,az:cam.azimuth,el:cam.elevation};}
+     else if(!pointers.size){endGrab();drag=null;}
+     if(pointers.size<2)pinch=null;
+   }
+   canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);
+   canvas.addEventListener('wheel',e=>{
+     e.preventDefault();
+     const k=e.deltaMode===1?16:e.deltaMode===2?Math.max(1,viewport.clientHeight):1,dx=e.deltaX*k,dy=e.deltaY*k;
+     if(!e.ctrlKey&&Math.abs(dx)>Math.abs(dy)){panBy(-dx,0);return;}
+     zoomBy(Math.exp(clamp(dy,-300,300)*(e.ctrlKey?.012:.0015)),e.clientX,e.clientY);
+   },{passive:false});
+   if(dblclick)canvas.addEventListener('dblclick',dblclick);
+ }
+ function positionLabel(el,pos,offset=0){const p=pos.clone().project(camera),x=(p.x+1)*viewport.clientWidth/2,y=(1-p.y)*viewport.clientHeight/2+offset;el.style.left=x+'px';el.style.top=y+'px';el.style.visibility=p.z>1||x<25||x>viewport.clientWidth-25||y<35||y>viewport.clientHeight-42?'hidden':'visible';}
+ function announce(text){const a=$('announcement');a.textContent='';setTimeout(()=>{a.textContent=text;},30);}
+
+ // Practice session. The instrument supplies task generation, error diagnosis and 3D hooks.
+ function createPractice(cfg){
+   const ui={num:$('taskNumber'),score:$('taskScore'),text:$('taskText'),form:$('answerForm'),input:$('answer'),check:$('check'),fb:$('feedback'),fbTitle:$('feedbackTitle'),fbText:$('feedbackText'),hint:$('hint'),reveal:$('reveal'),next:$('nextTask'),first:$('statFirst'),streak:$('statStreak'),best:$('statBest'),tally:$('errorTally'),logCount:$('logCount'),logList:$('logList'),exportBtn:$('exportLog'),clearBtn:$('clearLog')};
+   const blank=()=>({seq:0,answered:0,first:0,streak:0,best:0,errors:{},log:[]});
+   let stats=load()||blank(),task=null,feedbackState=null,clearTimer=0;
+   function load(){try{const s=JSON.parse(sessionStorage.getItem(cfg.key)||'null');return s&&Array.isArray(s.log)&&Number.isFinite(s.seq)?s:null;}catch(e){return null;}}
+   function save(){try{sessionStorage.setItem(cfg.key,JSON.stringify(stats));}catch(e){}}
+   const two=n=>String(n).padStart(2,'0');
+   const stamp=d=>`${d.getFullYear()}-${two(d.getMonth()+1)}-${two(d.getDate())} ${two(d.getHours())}:${two(d.getMinutes())}:${two(d.getSeconds())}`;
+   function parse(raw){
+     const s=String(raw).replace(/\s+/g,'').replace(/(мм|mm)$/i,'').replace(',','.');
+     if(!/^(\d+(\.\d*)?|\.\d+)$/.test(s))return null;
+     const v=Number(s);return Number.isFinite(v)?v:null;
+   }
+   const plain=html=>html.replace(/<[^>]+>/g,'');
+   function feedback(kind,title,html){
+     feedbackState={kind,title,html};
+     ui.fb.hidden=false;ui.fb.dataset.kind=kind;ui.fbTitle.textContent=title;ui.fbText.innerHTML=html;
+     announce(`${title}. ${plain(html)}`);
+   }
+   function clearFeedback(){feedbackState=null;ui.fb.hidden=true;ui.fbTitle.textContent='';ui.fbText.textContent='';}
+   function record(result,extra={}){
+     stats.log.push({no:task.no,time:stamp(new Date()),value:cfg.format(task),answer:extra.answer||'',attempt:task.attempts,result,type:extra.type||'',label:extra.label||'',hint:task.hint?1:0,secs:Math.round((performance.now()-task.started)/100)/10});
+     if(stats.log.length>1000)stats.log.splice(0,stats.log.length-1000);
+     save();renderStats();
+   }
+   function counted(){if(!task.counted){task.counted=true;stats.answered++;}}
+   function next(){
+     if(task&&!task.done&&!task.attempts)record('пропущено');
+     stats.seq++;
+     task={...cfg.generate(task),no:stats.seq,attempts:0,done:false,solved:false,revealed:false,hint:false,counted:false,started:performance.now()};
+     save();ui.input.value='';clearFeedback();cfg.show(task);renderTask();
+   }
+   function check(){
+     if(!task)return;
+     if(task.done){next();focusAnswer();return;}
+     const a=parse(ui.input.value);
+     if(a===null){feedback('info','Не вдалося прочитати число',cfg.formatHint);return;}
+     task.attempts++;counted();
+     const r=cfg.classify(task,a),answer=cfg.formatAnswer(a);
+     if(r.type==='correct'){
+       task.done=task.solved=true;
+       if(task.attempts===1){stats.first++;stats.streak++;stats.best=Math.max(stats.best,stats.streak);}
+       record('правильно',{answer});
+       feedback('ok',task.attempts===1?`Правильно: ${cfg.format(task)} мм`:`Правильно з ${task.attempts}-ї спроби: ${cfg.format(task)} мм`,cfg.explain(task));
+       cfg.reveal(task);
+     }else{
+       if(task.attempts===1)stats.streak=0;
+       stats.errors[r.type]=(stats.errors[r.type]||0)+1;
+       record('помилка',{answer,type:r.type,label:cfg.labels[r.type]||r.type});
+       feedback('bad',r.title,r.text+(task.attempts>=2?' Якщо не виходить, відкрийте відповідь і розберіть її на схемі.':''));
+       ui.input.select();
+     }
+     save();renderTask();
+   }
+   function reveal(){
+     if(!task||task.done)return;
+     counted();stats.streak=0;task.done=task.revealed=true;
+     record('відповідь показано');
+     feedback('reveal',`Відповідь: ${cfg.format(task)} мм`,cfg.explain(task));
+     cfg.reveal(task);save();renderTask();
+   }
+   function hint(){if(!task||task.done)return;task.hint=true;const h=cfg.hint(task);feedback('info',h.title,h.text);}
+   function focusAnswer(){if(matchMedia('(pointer:fine)').matches)ui.input.focus({preventScroll:true});}
+   function renderTask(){
+     ui.num.textContent=String(task.no);
+     ui.text.textContent=cfg.prompt(task);
+     ui.score.textContent=task.solved?(task.attempts===1?'✓ з першої спроби':`✓ зі спроби ${task.attempts}`):task.revealed?'відповідь показано':task.attempts?`спроба ${task.attempts+1}`:'';
+     ui.input.readOnly=task.done;
+     ui.check.textContent=task.done?'Далі':'Перевірити';
+     ui.hint.disabled=ui.reveal.disabled=task.done;
+     ui.next.classList.toggle('is-ready',task.done);
+     ui.next.textContent=task.done?'Наступне завдання':'Інше завдання';
+   }
+   function renderStats(){
+     ui.first.textContent=`${stats.first} з ${stats.answered}`;
+     ui.streak.textContent=String(stats.streak);ui.best.textContent=String(stats.best);
+     const rows=Object.entries(stats.errors).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]);
+     ui.tally.hidden=!rows.length;
+     ui.tally.innerHTML=rows.length?`<h3>ТИПОВІ ПОМИЛКИ</h3><ul>${rows.map(([t,n])=>`<li><span>${cfg.labels[t]||t}</span><span>${n}</span></li>`).join('')}</ul>`:'';
+     ui.logCount.textContent=String(stats.log.length);
+     const recent=stats.log.slice(-60).reverse();
+     ui.logList.innerHTML=recent.length?recent.map(e=>{
+       const cls=e.result==='правильно'?'ok':e.result==='помилка'?'bad':'';
+       const what=e.result==='помилка'?e.label:e.result;
+       return `<li><span class="n">№${e.no}</span><span class="v">${e.value} → ${e.answer||'—'}</span><span class="t">${String(e.secs).replace('.',',')} с</span><span class="r ${cls}">${what}${e.hint?' · з підказкою':''}</span></li>`;
+     }).join(''):'<li class="empty">Поки що порожньо.</li>';
+     ui.exportBtn.disabled=!stats.log.length;
+   }
+   function exportCsv(){
+     const head=['№ завдання','Час','Прилад','Правильне значення, мм','Відповідь, мм','Спроба','Результат','Тип помилки','Підказка','Секунд від початку завдання'];
+     const rows=stats.log.map(e=>[e.no,e.time,cfg.instrument,e.value,e.answer,e.attempt,e.result,e.label,e.hint?'так':'',String(e.secs).replace('.',',')]);
+     const esc=v=>{const s=String(v??'');return/[;"\r\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s;};
+     const csv='\ufeff'+[head,...rows].map(r=>r.map(esc).join(';')).join('\r\n');
+     const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+     a.download=`${cfg.file}-${stamp(new Date()).slice(0,10)}.csv`;document.body.appendChild(a);a.click();
+     setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);
+   }
+   function clearLog(){
+     if(!clearTimer){ui.clearBtn.textContent='Натисніть ще раз, щоб очистити';clearTimer=setTimeout(()=>{clearTimer=0;ui.clearBtn.textContent='Очистити журнал';},3500);return;}
+     clearTimeout(clearTimer);clearTimer=0;ui.clearBtn.textContent='Очистити журнал';
+     const seq=stats.seq;stats=blank();stats.seq=seq;save();renderStats();announce('Журнал і статистику очищено.');
+   }
+   ui.form.addEventListener('submit',e=>{e.preventDefault();check();});
+   ui.reveal.addEventListener('click',reveal);ui.hint.addEventListener('click',hint);
+   ui.next.addEventListener('click',()=>{next();focusAnswer();});
+   ui.exportBtn.addEventListener('click',exportCsv);ui.clearBtn.addEventListener('click',clearLog);
+   renderStats();
+   return {
+     start(){if(!task)next();else{cfg.show(task);if(task.done)cfg.reveal(task,true);renderTask();if(feedbackState){const f=feedbackState;feedback(f.kind,f.title,f.html);}}},
+     get task(){return task;},
+     next,check,reveal
+   };
+ }
+
+
+ let state=1025,play=false,showLabels=false,demoInitialized=false,elapsed=0,mode='home';
+ let practiceOn=false,revealHints=false,exploreState=1025;
+ const hintsShown=()=>!practiceOn||revealHints;
+ const parts=s=>({whole:Math.floor(s/100),half:Math.floor(s/50)%2===1,sleeve:Math.floor(s/50)/2,div:s%50});
  function fitDistance(){const aspect=viewport.clientWidth/Math.max(1,viewport.clientHeight);return Math.max(130,145/(2*Math.tan(THREE.MathUtils.degToRad(17.5))*aspect));}
  function scaleFocus(){return 10+state/100-(camera.aspect<1.1?2:4);}
- function projectLabel(el,pos,dy=0){const p=pos.clone().project(camera);const x=(p.x+1)/2*viewport.clientWidth,y=(-p.y+1)/2*viewport.clientHeight+dy;el.style.left=x+'px';el.style.top=y+'px';el.style.visibility=p.z>1||x<18||x>viewport.clientWidth-18||y<25||y>viewport.clientHeight-38?'hidden':'visible';}
+ function frameView(type){
+   const focus=type==='scale';
+   cam.target.set(focus?scaleFocus():12,focus?0:-10,0);cam.azimuth=focus?-.025:.13;cam.elevation=focus?.055:.2;cam.distance=focus?Math.max(50,46/camera.aspect):fitDistance();
+   camCustom=false;
+ }
+ function view(type){mode=type;frameView(type);$('homeView').setAttribute('aria-pressed',String(type!=='scale'));$('scaleView').setAttribute('aria-pressed',String(type==='scale'));syncOverlays();invalidate();}
  function scaleDiagram(){
-   const q=state/100,base=Math.floor(state/50)/2,d=state%50;
+   const q=state/100,{sleeve:base,div:d}=parts(state);
    // A straightened reading aid: the actual curved scale remains on the model.
    const step=31,edge=204,start=Math.max(0,Math.floor(q)-4),offset=edge-(q-start)*step;
    let s='<defs><clipPath id="sleeveClip"><rect x="8" y="15" width="196" height="108"/></clipPath></defs>';
@@ -360,28 +695,38 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
    s+='<path d="M8 64H306" stroke="#b89225" stroke-dasharray="3 4" opacity=".55"/><path d="M204 15V125" stroke="#d7aa30" stroke-width="2"/>';
    $('scaleDiagram').innerHTML=s;
    $('scaleDiagram').setAttribute('aria-label',`Зчитування: стебло ${fmt(base)} мм, барабан ${fmt(d/100)} мм, разом ${fmt(q)} мм`);
+   $('matchReading').textContent=`Стебло ${fmt(base)} мм + барабан ${d} × 0,01 = ${fmt(q)} мм`;
  }
- function setValue(v,announce=false){
-   if(!Number.isFinite(v))return;
-   state=Math.max(0,Math.min(2500,Math.round(v)));const q=state/100;
-   const tip=-34+q;
-   spindle.scale.y=(42-q)/42;spindle.position.x=(tip+8)/2;
-   spindleFace.position.x=tip+.05;
+ function concealDiagram(on){$('scaleSection').classList.toggle('is-concealed',on);}
+ function syncOverlays(){dim.visible=hintsShown();gapLabel.hidden=!hintsShown();gapLabel.style.opacity=mode==='scale'?'0':'1';}
+ // Model state only (spindle, thimble, dimension); explore-mode text is updated separately.
+ function applyState(v){
+   const prev=state;state=clamp(Math.round(v),0,2500);const q=state/100,tip=ANVIL+q;
+   spindle.scale.y=(SPINDLE_LEN-q)/SPINDLE_LEN;spindle.position.x=(tip+.5+8)/2;
+   spindleFace.position.x=tip+.25;
    thimble.position.x=10+q;thimble.rotation.x=state/50*Math.PI*2;
    const p=dimension.geometry.attributes.position;p.setXYZ(1,tip,11,0);p.needsUpdate=true;dimension.geometry.computeBoundingSphere();
    rightGuide.position.x=q-10.25;rightArrow.position.x=q-10.25;leftArrow.visible=rightArrow.visible=q>2;
-   $('reading').textContent=fmt(q);$('opening').value=state;
-   if(document.activeElement!==$('exactValue'))$('exactValue').value=q.toFixed(2);
-   $('sleeveReading').textContent=fmt(Math.floor(state/50)/2);$('thimbleReading').textContent=fmt(state%50/100);
    gapLabel.textContent=fmt(q)+' мм';
+   if(mode==='scale')cam.target.x+=(state-prev)/100; // the close-up follows the thimble edge
+   invalidate();
+ }
+ function setValue(v,announceIt=false){
+   if(!Number.isFinite(v)||practiceOn)return;
+   applyState(v);const q=state/100,{sleeve,div}=parts(state);
+   $('reading').textContent=fmt(q);$('opening').value=state;$('opening').setAttribute('aria-valuetext',fmt(q)+' мм');
+   if(document.activeElement!==$('exactValue'))$('exactValue').value=q.toFixed(2);
+   $('sleeveReading').textContent=fmt(sleeve);$('thimbleReading').textContent=fmt(div/100);
    $('minus').disabled=state===0;$('plus').disabled=state===2500;
    document.querySelectorAll('[data-value]').forEach(el=>el.setAttribute('aria-pressed',String(+el.dataset.value===state)));
    scaleDiagram();
-   if(mode==='scale')target.x=scaleFocus();
-   if(announce)$('announcement').textContent=`Відстань ${fmt(q)} міліметра`;
-   draw();
+   if(announceIt)announce(`Відстань ${fmt(q)} міліметра`);
  }
- function setPlay(value){play=value;$('play').textContent=play?'Пауза':'Відтворити';$('play').setAttribute('aria-pressed',String(play));if(play){if(!demoInitialized){elapsed=0;demoInitialized=true;}view('scale');} }
+ function setPlay(value){
+   play=value&&!practiceOn;const b=$('play');
+   b.querySelector('.label').textContent=play?'Пауза':'Відтворити';b.querySelector('.icon').textContent=play?'❚❚':'▶';b.setAttribute('aria-pressed',String(play));
+   if(play){if(!demoInitialized){elapsed=0;demoInitialized=true;}view('scale');schedule();}
+ }
  function manual(v){setPlay(false);demoInitialized=false;setValue(v,true);}
  $('opening').addEventListener('input',e=>manual(+e.target.value));
  $('exactValue').addEventListener('input',e=>{if(e.target.value.trim()!==''&&Number.isFinite(+e.target.value))manual(+e.target.value*100);});
@@ -389,58 +734,137 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
  $('exactValue').addEventListener('blur',e=>{e.target.value=(state/100).toFixed(2);});
  $('minus').addEventListener('click',()=>manual(state-1));$('plus').addEventListener('click',()=>manual(state+1));
  $('play').addEventListener('click',()=>setPlay(!play));
- $('reset').addEventListener('click',()=>{setPlay(false);demoInitialized=false;setValue(1025,true);view('home');});
+ $('reset').addEventListener('click',()=>{if(practiceOn)return;setPlay(false);demoInitialized=false;setValue(1025,true);view('home');});
  $('homeView').addEventListener('click',()=>view('home'));$('scaleView').addEventListener('click',()=>view('scale'));
- $('labelsToggle').addEventListener('click',()=>{showLabels=!showLabels;$('labelsToggle').setAttribute('aria-pressed',String(showLabels));labels.forEach(o=>o.el.hidden=!showLabels);draw();});
- $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){$('announcement').textContent='Повноекранний режим недоступний у цьому вікні.';}});
+ $('labelsToggle').addEventListener('click',()=>{showLabels=!showLabels;$('labelsToggle').setAttribute('aria-pressed',String(showLabels));labels.forEach(o=>o.el.hidden=!showLabels);invalidate();});
+ $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){announce('Повноекранний режим недоступний у цьому вікні.');}});
+ document.addEventListener('fullscreenchange',()=>{const on=!!document.fullscreenElement,b=$('fullscreen');b.setAttribute('aria-label',on?'Вийти з повноекранного режиму':'На весь екран');b.title=b.getAttribute('aria-label');});
  document.querySelectorAll('[data-value]').forEach(el=>el.addEventListener('click',()=>{manual(+el.dataset.value);view('scale');}));
- canvas.addEventListener('pointerdown',e=>{
-   canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
-   if(pointers.size===2){const p=[...pointers.values()];pinch={span:Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y),distance};drag=null;return;}
-   const r=canvas.getBoundingClientRect();mouse.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);raycaster.setFromCamera(mouse,camera);
-   const turn=e.shiftKey||raycaster.intersectObjects(thimble.children,false).length>0;
-   drag={x:e.clientX,y:e.clientY,azimuth,elevation,state,turn};canvas.classList.add('dragging');
-   if(turn){setPlay(false);demoInitialized=false;}
+ installControls({
+   // Dragging the thimble rolls it: the front of the barrel follows the pointer (down = opening),
+   // and a drag along the axis moves it like the screw feed.
+   grab(e){
+     if(practiceOn||e.pointerType==='mouse'&&e.button!==0)return null;
+     const hit=hitAt(e.clientX,e.clientY,thimble);
+     if(!e.shiftKey&&!hit)return null;
+     setPlay(false);demoInitialized=false;placeCamera();
+     const x=hit?hit.point.x:thimble.position.x+6,R=7.65,turn=Math.PI*2/50;
+     const toCam=new THREE.Vector2(camera.position.z,camera.position.y);if(toCam.lengthSq()<1e-6)toCam.set(1,0);
+     const a0=Math.atan2(toCam.y,toCam.x); // front-most point of the barrel, measured from +Z towards +Y
+     const r=canvas.getBoundingClientRect(),scr=v=>{v.project(camera);return new THREE.Vector2((v.x+1)*r.width/2,(1-v.y)*r.height/2);};
+     const at=(a,dx=0)=>new THREE.Vector3(x+dx,R*Math.sin(a),R*Math.cos(a));
+     const p0=scr(at(a0)),roll=scr(at(a0-turn,.01)).sub(p0),axis=scr(at(a0,1)).sub(p0);
+     let len=roll.length();if(len<1.5){roll.set(0,3);len=3;}
+     const rollDir=roll.clone().divideScalar(len),axisDir=axis.lengthSq()>1e-6?axis.normalize():new THREE.Vector2(1,0),start=state;
+     return{
+       move(dx,dy){const d=new THREE.Vector2(dx,dy);setValue(start+Math.round((d.dot(rollDir)+d.dot(axisDir))/len));},
+       end(){if(state!==start)announce(`Відстань ${fmt(state/100)} міліметра`);}
+     };
+   },
+   dblclick(){view(mode==='home'?'scale':'home');}
  });
- canvas.addEventListener('pointermove',e=>{
-   if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
-   if(pointers.size===2&&pinch){const p=[...pointers.values()],span=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);distance=Math.max(24,Math.min(440,pinch.distance*pinch.span/Math.max(10,span)));draw();return;}
-   if(!drag)return;
-   const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
-   if(drag.turn)setValue(drag.state+Math.round((dx-dy)*.3));
-   else {azimuth=drag.azimuth-dx*.006;elevation=Math.max(-1.3,Math.min(1.3,drag.elevation+dy*.006));draw();}
- });
- function endPointer(e){pointers.delete(e.pointerId);drag=null;pinch=null;canvas.classList.remove('dragging');}
- canvas.addEventListener('pointerup',endPointer);canvas.addEventListener('pointercancel',endPointer);
- canvas.addEventListener('wheel',e=>{e.preventDefault();distance=Math.max(24,Math.min(440,distance*Math.exp(e.deltaY*.001)));draw();},{passive:false});
- canvas.addEventListener('dblclick',()=>view(mode==='home'?'scale':'home'));
- window.addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA|BUTTON/.test(e.target.tagName))return;if(e.code==='Space'){e.preventDefault();setPlay(!play);}if(e.code==='ArrowRight'){e.preventDefault();manual(state+(e.shiftKey?50:1));}if(e.code==='ArrowLeft'){e.preventDefault();manual(state-(e.shiftKey?50:1));}if(e.key.toLowerCase()==='r'){$('reset').click();}});
- function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();if(!drag)view(mode);draw();}
- new ResizeObserver(resize).observe(viewport);
- let prev=performance.now();
- function animate(now){
-   requestAnimationFrame(animate);const dt=Math.min(.08,(now-prev)/1000);prev=now;
-   if(play){
-     elapsed+=dt*Number($('speed').value);
-     // One complete screw revolution, with short pauses at the video examples.
-     const cycle=elapsed%22;let n;
-     if(cycle<1.5)n=1000;else if(cycle<5)n=1000+(cycle-1.5)/3.5*25;else if(cycle<6.5)n=1025;else if(cycle<10)n=1025+(cycle-6.5)/3.5*25;else if(cycle<12)n=1050;else if(cycle<15.5)n=1050-(cycle-12)/3.5*25;else if(cycle<17)n=1025;else if(cycle<20.5)n=1025-(cycle-17)/3.5*25;else n=1000;
-     if(Math.round(n)!==state)setValue(n);
-     if(mode==='scale'&&!drag)target.x=scaleFocus();
+ window.addEventListener('keydown',e=>{
+   if(e.ctrlKey||e.metaKey||e.altKey)return;
+   const t=e.target;
+   if(practiceOn){
+     if(t!==canvas&&t!==document.body)return;
+     const k=e.key;let used=true;
+     if(k==='ArrowLeft')panBy(60,0);else if(k==='ArrowRight')panBy(-60,0);else if(k==='ArrowUp')panBy(0,60);else if(k==='ArrowDown')panBy(0,-60);
+     else if(k==='+'||k==='=')zoomBy(1/1.25);else if(k==='-'||k==='_')zoomBy(1.25);else used=false;
+     if(used)e.preventDefault();return;
    }
-   draw();
- }
- function draw(){
-   updateCamera();
-   projectLabel(gapLabel,new THREE.Vector3(-34+state/200,13,0),-10);gapLabel.style.opacity=mode==='scale'?'0':'1';
-   if(showLabels){labels[2].p.x=(-34+state/100-2)/2;labels[3].p.x=(8.2+10+state/100)/2;labels[4].p.x=10+state/100+18;labels[5].p.x=10+state/100+40;labels.forEach(({el,p})=>projectLabel(el,p,-22));}
+   if(t.closest&&t.closest('input,select,textarea,button,summary,a,[contenteditable]'))return;
+   if(e.code==='Space'){e.preventDefault();setPlay(!play);}
+   else if(e.code==='ArrowRight'){e.preventDefault();manual(state+(e.shiftKey?50:1));}
+   else if(e.code==='ArrowLeft'){e.preventDefault();manual(state-(e.shiftKey?50:1));}
+   else if(e.key.toLowerCase()==='r')$('reset').click();
+ });
+ function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();if(!camCustom)frameView(mode);invalidate();}
+ new ResizeObserver(resize).observe(viewport);
+ tickers.push(dt=>{
+   if(!play)return false;
+   elapsed+=dt*Number($('speed').value);
+   // One complete screw revolution, with short pauses at the video examples.
+   const cycle=elapsed%22;let n;
+   if(cycle<1.5)n=1000;else if(cycle<5)n=1000+(cycle-1.5)/3.5*25;else if(cycle<6.5)n=1025;else if(cycle<10)n=1025+(cycle-6.5)/3.5*25;else if(cycle<12)n=1050;else if(cycle<15.5)n=1050-(cycle-12)/3.5*25;else if(cycle<17)n=1025;else if(cycle<20.5)n=1025-(cycle-17)/3.5*25;else n=1000;
+   if(Math.round(n)!==state)setValue(n);
+   return true;
+ });
+ function render(){
+   placeCamera();
+   syncOverlays();
+   projectLabel(gapLabel,new THREE.Vector3(ANVIL+state/200,13,0),-10);
+   if(showLabels){labels[2].p.x=(ANVIL+state/100-2)/2;labels[3].p.x=(8.2+10+state/100)/2;labels[4].p.x=10+state/100+18;labels[5].p.x=10+state/100+40;labels.forEach(({el,p})=>projectLabel(el,p,-22));}
    renderer.render(scene,camera);
  }
- setValue(1025);resize();view('home');requestAnimationFrame(animate);
- // Small read-only hook allows verification of physical state without UI internals.
- window.micrometerState=()=>({hundredths:state,gap:state/100,sleeve:Math.floor(state/50)/2,division:state%50,spindleFace:-34+state/100,anvilFace:-34,thimbleEdge:thimble.position.x,thimbleRadians:thimble.rotation.x,playing:play,view:mode});
-})();
+ function projectLabel(el,pos,dy=0){const p=pos.clone().project(camera);const x=(p.x+1)/2*viewport.clientWidth,y=(-p.y+1)/2*viewport.clientHeight+dy;el.style.left=x+'px';el.style.top=y+'px';el.style.visibility=p.z>1||x<18||x>viewport.clientWidth-18||y<25||y>viewport.clientHeight-38?'hidden':'visible';}
 
+ // ---- Practice mode ------------------------------------------------------------
+ const SPECIMEN={ball:'кульку',rod:'валик',wire:'дріт',plate:'пластину'};
+ function generate(prev){
+   for(let i=0;i<60;i++){
+     const r=Math.random();
+     const d=r<.35?pick([45,46,47,48,49,0,1,2,3,4]):r<.5?(5*Math.floor(Math.random()*10)+pick([1,2,3,4]))%50:Math.floor(Math.random()*50);
+     const s=Math.floor(Math.random()*50)*50+d;        // sleeve 0,00…24,50 plus thimble
+     if(s<25||s>2500||(prev&&s===prev.units))continue;
+     const mm=s/100;
+     return{units:s,specimen:mm<1?'plate':mm<4?'wire':pick(['ball','rod'])};
+   }
+   return{units:1048,specimen:'ball'};
+ }
+ const LABELS={units:'Сантиметри замість міліметрів',resolution:'Більше двох знаків після коми',half_missed:'Не враховано 0,5 мм',half_extra:'Зайві 0,5 мм',thimble_neighbor:'Сусідня поділка барабана',thimble_direction:'Поділки барабана не в той бік',no_thimble:'Не додано барабан',no_sleeve:'Не додано стебло',mm:'Цілі міліметри',thimble_wrong:'Показ барабана',other:'Інше'};
+ const RULE='Порядок відліку: 1) цілі міліметри — останній відкритий штрих над базовою лінією; 2) +0,50 мм, якщо між ним і краєм барабана під лінією видно штрих половини; 3) + поділка барабана, що лежить на базовій лінії, × 0,01 мм.';
+ function classify(s,a){
+   const T=s/100,{sleeve,div}=parts(s),d=a-T,near=(x,y)=>Math.abs(x-y)<5e-4;
+   const out=(type,title,text)=>({type,title,text});
+   if(near(a,T))return{type:'correct'};
+   if(near(a*10,T))return out('units','Відповідь схожа на сантиметри','Шкали мікрометра градуйовано в міліметрах. Запишіть відлік у мм — число в 10 разів більше.');
+   if(!near(a*100,Math.round(a*100)))return out('resolution','Відлік — із точністю до 0,01 мм','Ціна поділки барабана — 0,01 мм. Запишіть відлік із двома знаками після коми, без оцінювання тисячних.');
+   if(near(d,-.5))return out('half_missed','Не враховано 0,5 мм','Під базовою лінією між останнім цілим міліметром і краєм барабана видно штрих половини — додайте 0,50 мм. Якщо барабан показує 0–5, цей штрих щойно відкрився і може бути ледь помітним, але він уже пройдений.');
+   if(near(d,.5))return out('half_extra','Зайві 0,5 мм','Штрих половини міліметра ще під барабаном. Якщо його ледь видно, а барабан показує 45–49, половину ще не пройдено: край барабана лише наближається до штриха.');
+   const steps=Math.round(Math.abs(d)*100);
+   if(steps===1||steps===2)return out('thimble_neighbor','Сусідня поділка барабана',`Відлік відрізняється на ${steps===1?'одну поділку':'дві поділки'} барабана (${fmt(steps/100)} мм). Беріть поділку, яка лежить точно на продовженні базової лінії стебла.`);
+   if(div%5!==0){const L=Math.round(div/5)*5,w=2*L-div;if(w>=0&&w<50&&near(a,sleeve+w/100))return out('thimble_direction','Поділки барабана відлічено не в той бік','Від найближчої цифри на барабані рахуйте поділки до базової лінії з урахуванням напрямку: над лінією числа більші, під лінією — менші.');}
+   if(div!==0&&near(a,sleeve))return out('no_thimble','Не додано показ барабана','До показу стебла додайте соті частки з барабана: номер поділки, що лежить на базовій лінії, × 0,01 мм.');
+   if(sleeve>0&&near(a,div/100))return out('no_sleeve','Не додано показ стебла','Барабан дає лише соті частки. Спершу зчитайте стебло: цілі міліметри над лінією і, якщо видно, ще 0,50 мм під лінією.');
+   if(near(d,Math.round(d)))return out('mm','Помилка в цілих міліметрах','Цілі міліметри — останній відкритий штрих над базовою лінією ліворуч від краю барабана. Відлічуйте від найближчої цифри на стеблі (0, 5, 10…).');
+   if(near(Math.floor(a*2+1e-9)/2,sleeve))return out('thimble_wrong','Показ барабана неправильний','Стебло зчитано правильно. На барабані знайдіть поділку, що лежить точно на базовій лінії; цифри стоять через 5 поділок, над лінією числа більші.');
+   return out('other','Неправильно',RULE);
+ }
+ function explain(s){
+   const {whole,half,div}=parts(s);
+   let t=`Стебло: <b>${whole} мм</b>${half?' + <b>0,50 мм</b> (під лінією видно штрих половини)':''}; барабан: поділка ${div} на базовій лінії → <b>${fmt(div/100)} мм</b>. Разом <b>${fmt(s/100)} мм</b>.`;
+   if(div>=45)t+=` Наступний штрих ${half?'цілого міліметра':'половини'} ще під барабаном: до нього ${fmt((50-div)/100)} мм.`;
+   else if(div<=4&&s>=50)t+=` Штрих ${half?'половини':'цілого міліметра'} щойно відкрився біля самого краю барабана.`;
+   return t;
+ }
+ const practice=createPractice({
+   key:'micrometer-practice-v1',file:'mikrometr-praktyka',instrument:'Мікрометр 0,01 мм',
+   formatHint:'Введіть відлік у міліметрах, наприклад 10,48.',labels:LABELS,
+   format:t=>fmt(t.units/100),formatAnswer:a=>a.toLocaleString('uk-UA',{minimumFractionDigits:2,maximumFractionDigits:3}),
+   generate,prompt:t=>`Між п’яткою і шпинделем затиснуто ${SPECIMEN[t.specimen]}. Наблизьте шкалу й зчитайте показ мікрометра.`,
+   classify:(t,a)=>classify(t.units,a),explain:t=>explain(t.units),
+   hint(){if(mode!=='scale')view('scale');
+     return{title:'Підказка',text:'Спершу стебло: цілі міліметри — останній відкритий штрих над базовою лінією; якщо між ним і краєм барабана під лінією видно ще один штрих, додайте 0,50 мм. Потім барабан: поділка, що лежить на базовій лінії, × 0,01 мм.'};},
+   show(t){revealHints=false;applyState(t.units);placeSpecimen(t.specimen,t.units/100);frameView(mode);concealDiagram(true);syncOverlays();invalidate();},
+   reveal(t,restoring){revealHints=true;scaleDiagram();concealDiagram(false);if(t.revealed&&!restoring&&mode!=='scale')view('scale');syncOverlays();invalidate();}
+ });
+ function setMode(on){
+   if(on===practiceOn)return;
+   setPlay(false);demoInitialized=false;
+   if(on){exploreState=state;practiceOn=true;app.classList.add('is-practice');practice.start();}
+   else{practiceOn=false;revealHints=false;app.classList.remove('is-practice');concealDiagram(false);placeSpecimen(null,0);setValue(exploreState);frameView(mode);}
+   $('modeExplore').setAttribute('aria-pressed',String(!on));$('modePractice').setAttribute('aria-pressed',String(on));
+   canvas.setAttribute('aria-label',on?'3D-модель для самостійного відліку. Перетягніть, щоб обертати камеру; колесо миші наближає до курсора.':'3D-модель. Перетягніть, щоб обертати; прокрутіть, щоб наблизити.');
+   syncOverlays();invalidate();
+   announce(on?'Режим практики. Відлік приховано.':'Режим дослідження.');
+ }
+ $('modeExplore').addEventListener('click',()=>setMode(false));$('modePractice').addEventListener('click',()=>setMode(true));
+ setValue(1025);resize();view('home');
+ // Small read-only hook allows verification of physical state without UI internals.
+ window.micrometerState=()=>({hundredths:state,gap:state/100,sleeve:parts(state).sleeve,division:parts(state).div,spindleFace:spindleFace.position.x-.25,anvilFace:ANVIL,thimbleEdge:thimble.position.x,thimbleRadians:thimble.rotation.x,playing:play,view:mode,practice:practiceOn});
+
+})();
 </script>
 </body>
 </html>
