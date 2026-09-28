@@ -179,6 +179,73 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
 @media(hover:none) and (pointer:coarse){.hint-mouse{display:none}.hint-touch{display:inline}}
 @media(max-width:520px){.answer-input input{font-size:26px}}
 
+/* Readable explanations and a consistent route back to the instrument list. */
+:root{--muted:#596862;--copy-size:clamp(.8125rem,.77rem + .13vw,.9375rem);--small-size:clamp(.75rem,.71rem + .12vw,.875rem)}
+.workspace{grid-template-columns:minmax(0,1fr) clamp(340px,28vw,410px)}
+.brand,.brand>div{min-width:0}
+.brand-mark{flex-shrink:0}
+.eyebrow{font-size:.625rem;color:#acb8c1}
+.back-link{display:inline-flex;align-items:center;gap:8px;flex-shrink:0;min-height:42px;padding:9px 13px;border:1px solid #596a77;border-radius:5px;color:#e2e9ec;font-size:.875rem;line-height:1.4;text-decoration:none;white-space:nowrap}
+.back-link:hover{background:#263744;border-color:#a3b2ba;color:#fff}
+.back-link:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.back-link>span{font-size:1.125rem;line-height:1}
+.section-label{font-size:var(--small-size);line-height:1.45;letter-spacing:1.25px}
+.part-label,.part-value small,.label-row>span,.exact-input>span,.reading-line>span{color:#586960}
+.part-label,.label-row label,.label-row h2{font-size:var(--copy-size);line-height:1.4}
+.part-value small,.label-row>span,.exact-input>span{font-size:var(--small-size)}
+.decomposition>div{min-width:0}
+.decomposition{gap:clamp(16px,2vw,25px)}
+.sum-symbol{color:#78867b}
+.label-row{flex-wrap:wrap;row-gap:4px}
+.step-button,.primary-button,.secondary-button,.mode-switch button{font-size:var(--copy-size)}
+.step-button,.exact-input{height:42px}
+.exact-input input{font-size:1rem;padding-right:32px}
+.presets{flex-wrap:wrap;justify-content:flex-start;gap:4px 6px}
+.presets button{font-size:var(--small-size);min-height:32px;padding:5px 7px;color:#4e6766}
+.primary-button{min-height:44px;line-height:1.4}
+.text-button{font-size:var(--copy-size);color:#526a64}
+.speed-row{gap:10px;font-size:var(--small-size);color:#596960}
+.speed-row select{max-width:104px;font-size:var(--small-size);color:#455c55;min-height:32px}
+.scale-section p,.scale-section .pitch-note,.scale-section .match-reading,.help,.help summary,.feedback-text,.reveal-note,.sample-note{font-size:var(--copy-size);line-height:1.65;color:#52635c}
+.scale-section .match-reading,.scale-section .pitch-note,.scale-section .rule-note{color:#3d625c}
+.scale-section p+p{margin-top:10px}
+.help summary{font-weight:550}
+kbd{font-size:var(--small-size);color:#455c4f}
+.model-note{max-width:none;font-size:var(--small-size);line-height:1.65;color:#63715f}
+.mode-switch button{height:auto;min-height:40px;padding:7px 4px}
+.task-head{flex-wrap:wrap;row-gap:4px}
+.task-score,.answer-hint,.stat-label,.error-tally h3,.log-count{font-size:var(--small-size);color:#58695f;line-height:1.5}
+.task-text,.feedback-title{font-size:clamp(.875rem,.83rem + .13vw,1rem);line-height:1.55}
+.answer-input>span{color:#586960}
+.feedback{padding:13px 14px 14px}
+.secondary-button{min-height:40px}
+.stat-label{overflow-wrap:anywhere}
+.error-tally h3{letter-spacing:1px}
+.error-tally li,.log,.log summary,.log-actions .text-button{font-size:var(--copy-size);line-height:1.5}
+.log summary,.log-list .n,.log-list .t,.log-list .r,.log-list .empty{color:#596b60}
+.log-list .r.ok{color:#32675b}
+.log-list .r.bad{color:#8c4f24}
+.log-actions{flex-wrap:wrap;column-gap:16px;row-gap:0}
+.scene-caption>span,.camera-hint{color:#adbac4}
+.camera-hint{font-size:.75rem}
+.scene-caption>span{font-size:.75rem;line-height:1.5}
+@media(max-width:680px){
+  .control-rail{display:block;padding:26px clamp(20px,5vw,28px)}
+  .adjustment{padding-top:24px}
+  .app.is-practice .scale-section{padding-top:24px}
+  .help{margin-top:18px}
+  .model-note{max-width:none}
+  .speed-row select{font-size:1rem}
+}
+@media(max-width:600px){
+  .topbar{height:auto;min-height:78px;flex:0 0 auto;flex-wrap:wrap;padding:16px 20px;gap:12px}
+  .brand{flex:1 1 100%;gap:11px}
+  .brand h1{font-size:clamp(1.5rem,1.2rem + 1vw,1.6875rem);line-height:1.15}
+  .eyebrow{letter-spacing:1.4px}
+  .back-link{min-height:40px;margin-left:16px}
+  .camera-hint{bottom:70px;max-width:calc(100% - 42px);font-size:.75rem}
+}
+
 </style>
 </head>
 <body>
@@ -188,6 +255,7 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
         <span class="brand-mark" aria-hidden="true"></span>
         <div><p class="eyebrow">ІНТЕРАКТИВНА 3D-МОДЕЛЬ</p><h1>Мікрометр</h1></div>
       </div>
+      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Усі прилади</a>
     </header>
 
     <main class="workspace">
@@ -815,13 +883,14 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
  const LABELS={units:'Сантиметри замість міліметрів',resolution:'Більше двох знаків після коми',half_missed:'Не враховано 0,5 мм',half_extra:'Зайві 0,5 мм',thimble_neighbor:'Сусідня поділка барабана',thimble_direction:'Поділки барабана не в той бік',no_thimble:'Не додано барабан',no_sleeve:'Не додано стебло',mm:'Цілі міліметри',thimble_wrong:'Показ барабана',other:'Інше'};
  const RULE='Порядок відліку: 1) цілі міліметри — останній відкритий штрих над базовою лінією; 2) +0,50 мм, якщо між ним і краєм барабана під лінією видно штрих половини; 3) + поділка барабана, що лежить на базовій лінії, × 0,01 мм.';
  function classify(s,a){
-   const T=s/100,{sleeve,div}=parts(s),d=a-T,near=(x,y)=>Math.abs(x-y)<5e-4;
+   const T=s/100,{sleeve,half,div}=parts(s),d=a-T,near=(x,y)=>Math.abs(x-y)<5e-4;
    const out=(type,title,text)=>({type,title,text});
    if(near(a,T))return{type:'correct'};
    if(near(a*10,T))return out('units','Відповідь схожа на сантиметри','Шкали мікрометра градуйовано в міліметрах. Запишіть відлік у мм — число в 10 разів більше.');
    if(!near(a*100,Math.round(a*100)))return out('resolution','Відлік — із точністю до 0,01 мм','Ціна поділки барабана — 0,01 мм. Запишіть відлік із двома знаками після коми, без оцінювання тисячних.');
-   if(near(d,-.5))return out('half_missed','Не враховано 0,5 мм','Під базовою лінією між останнім цілим міліметром і краєм барабана видно штрих половини — додайте 0,50 мм. Якщо барабан показує 0–5, цей штрих щойно відкрився і може бути ледь помітним, але він уже пройдений.');
-   if(near(d,.5))return out('half_extra','Зайві 0,5 мм','Штрих половини міліметра ще під барабаном. Якщо його ледь видно, а барабан показує 45–49, половину ще не пройдено: край барабана лише наближається до штриха.');
+   if(half&&near(d,-.5))return out('half_missed','Не враховано 0,5 мм','Під базовою лінією між останнім цілим міліметром і краєм барабана видно штрих половини — додайте 0,50 мм. Якщо барабан показує 0–5, цей штрих щойно відкрився і може бути ледь помітним, але він уже пройдений.');
+   if(!half&&near(d,.5))return out('half_extra','Зайві 0,5 мм','Штрих половини міліметра ще під барабаном. Якщо його ледь видно, а барабан показує 45–49, половину ще не пройдено: край барабана лише наближається до штриха.');
+   if(near(Math.abs(d),.5))return out('other','Перевірте показ стебла',`${half?'Штрих половини міліметра після останнього відкритого цілого міліметра вже відкритий — його враховують один раз.':'Штрих половини міліметра після останнього відкритого цілого міліметра ще закритий — додавати 0,50 мм не потрібно.'} Заново визначте останній відкритий цілий міліметр, потім додайте показ барабана.`);
    const steps=Math.round(Math.abs(d)*100);
    if(steps===1||steps===2)return out('thimble_neighbor','Сусідня поділка барабана',`Відлік відрізняється на ${steps===1?'одну поділку':'дві поділки'} барабана (${fmt(steps/100)} мм). Беріть поділку, яка лежить точно на продовженні базової лінії стебла.`);
    if(div%5!==0){const L=Math.round(div/5)*5,w=2*L-div;if(w>=0&&w<50&&near(a,sleeve+w/100))return out('thimble_direction','Поділки барабана відлічено не в той бік','Від найближчої цифри на барабані рахуйте поділки до базової лінії з урахуванням напрямку: над лінією числа більші, під лінією — менші.');}

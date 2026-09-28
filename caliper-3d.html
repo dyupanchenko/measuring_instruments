@@ -195,6 +195,80 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
 @media(hover:none) and (pointer:coarse){.hint-mouse{display:none}.hint-touch{display:inline}}
 @media(max-width:520px){.answer-input input{font-size:26px}}
 
+/* Readable explanations and a consistent route back to the instrument list. */
+:root{--muted:#596862;--copy-size:clamp(.8125rem,.77rem + .13vw,.9375rem);--small-size:clamp(.75rem,.71rem + .12vw,.875rem)}
+.workspace{grid-template-columns:minmax(0,1fr) clamp(340px,28vw,410px)}
+.brand,.brand>div{min-width:0}
+.brand-mark{flex-shrink:0}
+.eyebrow{font-size:.625rem;color:#acb8c1}
+.back-link{display:inline-flex;align-items:center;gap:8px;flex-shrink:0;min-height:42px;padding:9px 13px;border:1px solid #596a77;border-radius:5px;color:#e2e9ec;font-size:.875rem;line-height:1.4;text-decoration:none;white-space:nowrap}
+.back-link:hover{background:#263744;border-color:#a3b2ba;color:#fff}
+.back-link:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.back-link>span{font-size:1.125rem;line-height:1}
+.section-label{font-size:var(--small-size);line-height:1.45;letter-spacing:1.25px}
+.part-label,.part-value small,.label-row>span,.exact-input>span,.reading-line>span{color:#586960}
+.part-label,.label-row label,.label-row h2{font-size:var(--copy-size);line-height:1.4}
+.part-value small,.label-row>span,.exact-input>span{font-size:var(--small-size)}
+.decomposition>div{min-width:0}
+.decomposition{gap:clamp(16px,2vw,25px)}
+.sum-symbol{color:#78867b}
+.label-row{flex-wrap:wrap;row-gap:4px}
+.step-button,.primary-button,.secondary-button,.mode-switch button{font-size:var(--copy-size)}
+.step-button,.exact-input{height:42px}
+.exact-input input{font-size:1rem;padding-right:32px}
+.presets{flex-wrap:wrap;justify-content:flex-start;gap:4px 6px}
+.presets button{font-size:var(--small-size);min-height:32px;padding:5px 7px;color:#4e6766}
+.primary-button{min-height:44px;line-height:1.4}
+.text-button{font-size:var(--copy-size);color:#526a64}
+.speed-row{gap:10px;font-size:var(--small-size);color:#596960}
+.speed-row select{max-width:104px;font-size:var(--small-size);color:#455c55;min-height:32px}
+.scale-section p,.scale-section .pitch-note,.scale-section .match-reading,.help,.help summary,.feedback-text,.reveal-note,.sample-note{font-size:var(--copy-size);line-height:1.65;color:#52635c}
+.scale-section .match-reading,.scale-section .pitch-note,.scale-section .rule-note{color:#3d625c}
+.scale-section p+p{margin-top:10px}
+.help summary{font-weight:550}
+kbd{font-size:var(--small-size);color:#455c4f}
+.model-note{max-width:none;font-size:var(--small-size);line-height:1.65;color:#63715f}
+.mode-switch button{height:auto;min-height:40px;padding:7px 4px}
+.task-head{flex-wrap:wrap;row-gap:4px}
+.task-score,.answer-hint,.stat-label,.error-tally h3,.log-count{font-size:var(--small-size);color:#58695f;line-height:1.5}
+.task-text,.feedback-title{font-size:clamp(.875rem,.83rem + .13vw,1rem);line-height:1.55}
+.answer-input>span{color:#586960}
+.feedback{padding:13px 14px 14px}
+.secondary-button{min-height:40px}
+.stat-label{overflow-wrap:anywhere}
+.error-tally h3{letter-spacing:1px}
+.error-tally li,.log,.log summary,.log-actions .text-button{font-size:var(--copy-size);line-height:1.5}
+.log summary,.log-list .n,.log-list .t,.log-list .r,.log-list .empty{color:#596b60}
+.log-list .r.ok{color:#32675b}
+.log-list .r.bad{color:#8c4f24}
+.log-actions{flex-wrap:wrap;column-gap:16px;row-gap:0}
+.scene-caption>span,.camera-hint{color:#adbac4}
+.camera-hint{font-size:.75rem}
+.scene-caption>span{font-size:.75rem;line-height:1.5}
+.sample-label,.measure-button{font-size:var(--copy-size);line-height:1.45}
+.sample-label input{width:16px;height:16px;flex-shrink:0}
+.contact-status{font-size:var(--small-size);color:#596b5d;line-height:1.5;padding-left:24px}
+.contact-status.is-contact,.contact-status[data-contact=true]{color:#32675b}
+.measure-button{min-height:42px}
+@media(max-width:680px){
+  .control-rail{display:block;padding:26px clamp(20px,5vw,28px)}
+  .adjustment{padding-top:24px}
+  .app.is-practice .scale-section{padding-top:24px}
+  .help{margin-top:18px}
+  .model-note{max-width:none}
+  .speed-row select{font-size:1rem}
+  .sample-row{flex-wrap:wrap}
+  .contact-status{padding-left:0}
+}
+@media(max-width:600px){
+  .topbar{height:auto;min-height:78px;flex:0 0 auto;flex-wrap:wrap;padding:16px 20px;gap:12px}
+  .brand{flex:1 1 100%;gap:11px}
+  .brand h1{font-size:clamp(1.5rem,1.2rem + 1vw,1.6875rem);line-height:1.15}
+  .eyebrow{letter-spacing:1.4px}
+  .back-link{min-height:40px;margin-left:16px}
+  .camera-hint{bottom:70px;max-width:calc(100% - 42px);font-size:.75rem}
+}
+
 </style>
 </head>
 <body>
@@ -204,6 +278,7 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
         <span class="brand-mark" aria-hidden="true"></span>
         <div><p class="eyebrow">ІНТЕРАКТИВНА 3D-МОДЕЛЬ</p><h1>Штангенциркуль</h1></div>
       </div>
+      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Усі прилади</a>
     </header>
 
     <main class="workspace">
@@ -303,7 +378,7 @@ kbd{display:inline-block;font:9px "Segoe UI",Arial,sans-serif;border:1px solid #
           <p>У режимі практики рамка заблокована: у 3D-вікні стрілки зсувають вигляд, <kbd>+</kbd> / <kbd>−</kbd> змінюють масштаб, <kbd>Enter</kbd> у полі відповіді перевіряє її або відкриває наступне завдання.</p>
           <p>На повзунку також працюють <kbd>←</kbd> / <kbd>→</kbd>, <kbd>Home</kbd> і <kbd>End</kbd>. Для повного закриття губок спочатку приберіть гайку.</p>
         </details>
-        <p class="model-note">Геометрію деталей відтворено наближено. Шкали нанесено точно: зсув ноніуса на одну поділку дорівнює 0,05 мм.</p>
+        <p class="model-note">Геометрію деталей відтворено наближено. Ціна поділки ноніуса — 0,05 мм.</p>
       </aside>
     </main>
   </div>
